@@ -1,11 +1,11 @@
 <?php  
 class reports{
-			protected static $db_fields = array('id', 'tablename', 'description', 'linecons');
+			protected static $db_fields = array('id', 'tablename', 'description', 'lineicons');
 			protected static $table_name = "reports";
 		public $id;
 		public $tablename;
 		public $description;
-		public $linecons;
+		public $lineicons;
 			//Common Database Methods
   public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);

@@ -8,7 +8,8 @@
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 
 ///home/adhikari/var/www/hrm/LBPIS
-defined('SITE_ROOT') ? null : 
+define('SITE_ROOT', '/Users/anupadkh/Desktop/programs/parbat');
+defined('SITE_ROOT') ? null :
 	define('SITE_ROOT', DS.'home'.DS.'anup'.DS.'www'.DS.'ddc'.DS.'bridge'.DS.'Panel'.DS.'php');
 
 

@@ -1,6 +1,6 @@
 <?php  
 class fields{
-			protected static $db_fields = array('id', 'tablename', 'field', 'type', 'eng_name', 'nepl_name', 'descrip', 'priority', 'mykeys', 'myvalues', 'field_extra');
+			protected static $db_fields = array('id', 'tablename', 'field', 'type', 'eng_name', 'nepl_name', 'descrip', 'priority', 'mykeys');
 			protected static $table_name = "fields";
 		public $id;
 		public $tablename;
@@ -11,8 +11,6 @@ class fields{
 		public $descrip;
 		public $priority;
 		public $mykeys;
-		public $myvalues;
-		public $field_extra;
 			//Common Database Methods
   public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);

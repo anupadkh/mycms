@@ -18,7 +18,12 @@ from django.contrib import admin
 
 
 urlpatterns = [
+    # url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', admin.site.urls),
     url(r'^polls/', include('polls.urls')),
     url(r'^personal/', include('personal.urls')),
+    url(r'^forms/', include('formentry.urls')),
+    url(r'^users/', include('users.urls')),
+
 ]

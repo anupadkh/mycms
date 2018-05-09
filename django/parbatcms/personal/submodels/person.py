@@ -12,11 +12,11 @@ Hobby
 
 '''
 class Personal(models.Model):
-    fname = models.CharField(max_length=100)
-    lname = models.CharField(max_length=100)
-    mname = models.CharField(max_length=50, blank=True, null=True)
+    fname = models.CharField('First Name',max_length=100)
+    lname = models.CharField('Last Name',max_length=100)
+    mname = models.CharField('Middle Name',max_length=50, blank=True, null=True)
     pub_date = models.DateTimeField('date published')
-    gened = models.CharField(max_length=60,default="23",blank=True, null=True) #Generated IDS
+    gened = models.CharField('Generated Id', max_length=60, default="23", blank=True, null=True) #Generated IDS
     def __str__(self):
         return self.full_name();
 
@@ -24,13 +24,15 @@ class Personal(models.Model):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     # class Meta:
-    #     appname = "Person"
+        # appname = "Person"
 
     def full_name(self):
         if self.mname:
             return self.fname + " " + self.mname + " " + self.lname
         else:
             return self.fname + " " + self.lname
+    # class Meta:
+        # app_label = 'Personal Details'
 
 
 

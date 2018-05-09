@@ -31,9 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'jet.dashboard',
+    # 'jet',
     'polls.apps.PollsConfig',
     'personal.apps.PersonalConfig',
-    'grappelli',
+    'formentry.apps.FormentryConfig',
+    'users.apps.UsersConfig',
+    # 'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,7 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                 'django.template.context_processors.request',
+                # 'django.template.context_processors.request',
             ],
         },
     },
@@ -126,3 +130,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+JET_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'

@@ -1,5 +1,7 @@
 {% extends 'design/base.html' %}
 
+{% load widget_tweaks %}
+
 {% block content %}
   <div class="row">
       <div class="col-md-12">
@@ -14,7 +16,7 @@
                       {% for field in form %}
                         <div class="form-group">
                             {{ field.errors }}
-                            {{ field.label_tag }} {{ field }}
+                            {{ field.label_tag }} {{ field |attr:"class:form-control" }}
                             {% if field.help_text %}
                             <p class="help">{{ field.help_text|safe }}</p>
                             {% endif %}

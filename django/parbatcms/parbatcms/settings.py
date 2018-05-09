@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # 'jet.dashboard',
     # 'jet',
+    'widget_tweaks',
     'polls.apps.PollsConfig',
     'personal.apps.PersonalConfig',
     'formentry.apps.FormentryConfig',

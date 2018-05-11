@@ -11,10 +11,11 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"/>
     <!-- CSS Files -->
     <link href="{% static '/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static '/assets/css/light-bootstrap-dashboard.css' %}" rel="stylesheet" />
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -83,6 +84,9 @@
  <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
 
 <script src="{% static 'assets/js/light-bootstrap-dashboard.js' %}"></script>
+<!-- Date Picker -->
+<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
 
  <script type="text/javascript">
      $(document).ready(function() {
@@ -92,6 +96,13 @@
          demo.showNotification();
 
      });
+</script>
+<script>
+    $(function () {
+        $('.datetime-input').datetimepicker({
+            format:'YYYY-MM-DD HH:mm:ss'
+        });
+    });
 </script>
 
 </body>

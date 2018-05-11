@@ -1,18 +1,14 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DateTimeInput, HiddenInput
 from personal.models import *
 
 class PersonalForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # This is handled by widget_tweaks
-        # for field in iter(self.fields):
-        #     self.fields[field].widget.attrs.update({
-        #         'class': 'form-control'
-        #     })
-        # self.fields['comment'].widget.attrs.update(size='40')
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super(PersonalForm, self).form_valid(form)
+
     class Meta:
         model = Personal
-        # exclude = ['gened']
+        exclude = ['gened']
         fields = '__all__'
         # widgets = {
         #     'name': Textarea(attrs={'cols': 80, 'rows': 20}),
@@ -20,4 +16,8 @@ class PersonalForm(ModelForm):
         field_classes = {
             # 'slug': MySlugFormField,
             'hari':'freaks', 'class':'form-control'
+        }
+        widgets = {
+            'pub_date': DateTimeInput(attrs={'class': 'datetime-input'}),
+            'creator' : HiddenInput()
         }

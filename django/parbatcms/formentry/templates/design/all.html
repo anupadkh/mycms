@@ -1,6 +1,5 @@
 {% extends 'design/index.html' %}
 
-{% load widget_tweaks %}
 
 {% block content %}
   <div class="row">
@@ -8,24 +7,15 @@
           <div class="card ">
               <div class="card-header ">
                   <h4 class="card-title">Forms</h4>
-                  <p class="card-category">Custom Generated Form</p>
+                  <p class="card-category">{% if stat %}Your data has been {{stat}} {% endif %}</p>
               </div>
               <div class="card-body ">
                   <div id="form" >
                     <form action="{% url 'formentry:entry'%}" method="post">
                       {% csrf_token %}
-                      {% for field in form %}
+                      {% for persons in people %}
                         <div class="form-group">
-                            {{ field.errors }}
-                            {{ field.label_tag }}
-                            {% if field.name != 'pub_date' %}
-                              {{ field |attr:"class:form-control" }}
-                            {% else %}
-                              {{ field |attr:"class:datetime-input form-control" }}
-                            {% endif %}
-                            {% if field.help_text %}
-                            <p class="help">{{ field.help_text|safe }}</p>
-                            {% endif %}
+                            <a href = "{% url 'formentry:personid' with person=persons.id %}">{{person.full_name}}</a>
                         </div>
                     {% endfor %}
                     <input type="submit" value="submit"/>
@@ -47,19 +37,4 @@
           <div>
       </div>
   </div>
-{% endblock %}
-
-{% block nav %}
-  <li >
-      <a class="nav-link" href="{% url 'formentry:index' %}">
-          <i class="nc-icon nc-chart-pie-35"></i>
-          <p>Dashboard</p>
-      </a>
-  </li>
-  <li class="nav-item active">
-      <a class="nav-link" href="{% url 'formentry:entry'%}">
-          <i class="nc-icon nc-circle-09"></i>
-          <p>User Profile</p>
-      </a>
-  </li>
 {% endblock %}

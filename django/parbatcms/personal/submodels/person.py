@@ -15,8 +15,9 @@ class Personal(models.Model):
     fname = models.CharField('First Name',max_length=100)
     lname = models.CharField('Last Name',max_length=100)
     mname = models.CharField('Middle Name',max_length=50, blank=True, null=True)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('Date Published')
     gened = models.CharField('Generated Id', max_length=60, default="23", blank=True, null=True) #Generated IDS
+    creator = models.IntegerField(default=0)
     def __str__(self):
         return self.full_name();
 

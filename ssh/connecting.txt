@@ -1,0 +1,3 @@
+IP Address: 103.69.124.248
+Password: Adhik@ri1
+user: root

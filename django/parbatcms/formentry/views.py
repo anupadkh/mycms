@@ -19,20 +19,15 @@ def index(request):
     #2 return HttpResponse(template.render(context, request))
 
 def entry(request, person=0):
-    usernew = request.user
-    name = usernew.username
     if person!=0:
-        my_person = Personal.objects.get(id=person)
-        form = PersonalForm(instance=my_person)
+        my_person = Personal.objects.get(pk = int(person))
+        form = PersonalForm(request.POST or None, instance=my_person)
     else:
         form = PersonalForm(request.POST or None)
-    form.creator = name
-    # print (name)
-    # form.data = {'creator':name}
     if form.is_valid():
         person_saved = form.save()
-        return redirect('formentry:people2', status=1)
-    return render (request, 'design/forms.html',{'form':form, 'user':request.user})
+        return redirect('formentry:people_status', status=1)
+    return render (request, 'design/forms.html',{'form':form, 'user':request.user, 'personid':person})
 
 def all_people(request, status=0):
     a = Personal.objects.all()
@@ -40,4 +35,4 @@ def all_people(request, status=0):
         status_name = "Saved"
     else:
         status_name = None
-    return render (request, 'design/all.html',{'user':request.user, 'people':a, 'status':status_name})
+    return render (request, 'design/all.html', {'user':request.user,  'status':status_name, 'all':a})

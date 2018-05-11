@@ -12,7 +12,7 @@
               </div>
               <div class="card-body ">
                   <div id="form" >
-                    <form action="{% url 'formentry:entry'%}" method="post">
+                    <form action="{% url 'formentry:personid' person=personid %}" method="post">
                       {% csrf_token %}
                       {% for field in form %}
                         <div class="form-group">

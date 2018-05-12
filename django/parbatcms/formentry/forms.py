@@ -21,3 +21,55 @@ class PersonalForm(ModelForm):
             'pub_date': DateTimeInput(attrs={'class': 'datetime-input'}),
             'creator' : HiddenInput()
         }
+
+
+class AddressForm(ModelForm):
+    class Meta:
+        model = Address
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        person = kwargs.pop('person','')
+        super(AddressForm, self).__init__(*args, **kwargs)
+        self.fields['person'] = person
+
+
+class CardForm(ModelForm):
+    class Meta:
+        model = Nagrikta
+        fields = '__all__'
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+
+class SocialForm(ModelForm):
+    class Meta:
+        model = Social
+        fields = '__all__'
+
+class HobbyForm(ModelForm):
+    class Meta:
+        model = Hobby
+        fields = '__all__'
+
+class HouseForm(ModelForm):
+    class Meta:
+        model = House
+        fields = '__all__'
+
+class GeoForm(ModelForm):
+    class Meta:
+        model = GeoCode
+        fields = '__all__'
+
+class FamilyForm(ModelForm):
+    class Meta:
+        model = Family
+        fields = '__all__'
+
+class RelationForm(ModelForm):
+    class Meta:
+        model = Relation
+        fields = '__all__'

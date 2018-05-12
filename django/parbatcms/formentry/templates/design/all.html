@@ -11,7 +11,7 @@
               </div>
               <div class="card-body ">
                   <div id="form" >
-                    <form action="{% url 'formentry:entry'%}" method="post">
+                    <form action="{% url 'formentry:entry' %}" method="post">
                       {% csrf_token %}
                       {% for persons in all %}
                         <div class="form-group">

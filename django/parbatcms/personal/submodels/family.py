@@ -8,8 +8,13 @@ Relation
 
 '''
 class GeoCode(models.Model):
-    latitude = models.CharField(max_length=30)
-    longitude = models.CharField(max_length=30)
+    latitude = models.CharField('Latitude',max_length=30)
+    longitude = models.CharField('Longitude',max_length=30)
+    def __str__(self):
+        return full_coordinates()
+
+    def full_coordinates(self):
+        return self.latitude + ", " + self.longitude;
 
 class House(models.Model):
     coordinates = models.ForeignKey(GeoCode, on_delete = models.CASCADE)
@@ -25,8 +30,8 @@ class Family(models.Model):
 
 
 class Relation(models.Model):
-    # person1 = models.ForeignKey(Personal, on_delete=models.CASCADE, related_name='familyhead')
+    person1 = models.ForeignKey(Personal, on_delete=models.CASCADE, related_name='familyhead')
     person2 = models.ForeignKey(Personal, on_delete=models.CASCADE)
     relntype = models.CharField(max_length=50)
-    family = models.ForeignKey(Family, on_delete=models.CASCADE)
-    geolocation = models.ForeignKey(GeoCode, on_delete=models.CASCADE, blank=True, null=True)
+    def __str__(self):
+        return self.relntype

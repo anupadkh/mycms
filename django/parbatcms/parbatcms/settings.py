@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=8rpf-f6-%o(v%*e==#ay(@dbqelbll4%=skd$3t^+@e%@3l$2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -69,7 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages'
                 # 'django.template.context_processors.request',
             ],
         },
@@ -132,4 +132,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
 JET_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")

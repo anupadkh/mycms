@@ -36,3 +36,25 @@ def all_people(request, status=0):
     else:
         status_name = None
     return render (request, 'design/all.html', {'user':request.user,  'status':status_name, 'all':a})
+
+def house_entry(request,geo=None, house=None, person=None):
+    if house:
+        my_house = House.objects.get(pk = int(house))
+        form = HouseForm(request.POST or None, instance=my_house)
+    else:
+        form = HouseForm(request.POST or None)
+    if form.is_valid():
+        house_saved = form.save()
+        return redirect('formentry:geo_entry')
+    return render (request, 'entry_forms/house.html', {'form':form, 'personid':person, 'houseid':house, 'geoid':geo})
+
+def geo_entry(request, id=None):
+    if id !=0 :
+        my_geo = GeoCode.objects.get(pk=int(id))
+        form = GeoForm(request.POST or None, instance=my_geo)
+    else:
+        form = GeoForm(request.POST or None)
+    if form.is_valid():
+        geo_saved = form.save()
+        return redirect('formentry:geo',id=geo_saved.id)
+    return render (request,'entry_forms/geo.html',{'form':form, 'geoid':id})

@@ -1,0 +1,41 @@
+{% extends 'design/index.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+<form class="" action="{% url 'formentry:geo' id=geoid %}" method="post">
+  {{form}}
+  {% csrf_token %}
+  <input type="submit" name="Submit" value="Submit">
+</form>
+<script>
+var x = document.getElementById("demo");
+var lat = document.getElementById("id_latitude");
+var long = document.getElementById("id_longitude");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";}
+    }
+
+function showPosition(position) {
+    x.innerHTML="Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+    lat.value = position.coords.latitude;
+    long.value = position.coords.longitude;
+
+}
+</script>
+{% if id %}
+
+{% endif %}
+
+{% endblock %}

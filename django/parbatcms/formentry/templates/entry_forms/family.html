@@ -1,0 +1,22 @@
+{% extends 'entry_forms/user_forms.html' %}
+
+{% block form-title %}
+  <h4 class="card-title">परिवारको विवररण</h4>
+  <p class="card-category">परिवार</p>
+{% endblock %}
+
+{% block form-body %}
+<form action="{% url 'formentry:family_details' house=house fid=fid geo=geo pid=pid %}" method=post>
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" name="submit" value="Submit">
+</form>
+{% endblock %}
+
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+
+{% endblock %}

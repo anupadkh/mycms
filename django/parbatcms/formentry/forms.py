@@ -34,7 +34,7 @@ class AddressForm(ModelForm):
         self.fields['person'] = person
 
 
-class CardForm(ModelForm):
+class NagriktaForm(ModelForm):
     class Meta:
         model = Nagrikta
         fields = '__all__'

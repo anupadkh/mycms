@@ -1,0 +1,20 @@
+{% extends 'entry_forms/user_forms.html' %}
+
+{% block form-title %}
+  <h4 class="card-title">परिवारको विवररण</h4>
+  <p class="card-category">सबै परिवारका घरमुली</p>
+{% endblock %}
+
+{% block form-body %}
+{% for member in families %}
+<a href="{% url 'formentry:family_details' fid=member.id geo=geo pid=0 house=1 %}">{{member}}</a>
+{% endfor %}
+{% endblock %}
+
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+<a href="{% url 'formentry:family_details' geo=geo fid=0 pid=0 house=0%}" role="button" class="btn btn-primary">नयाँ परिवार थप्नुहोस् </a>
+{% endblock %}

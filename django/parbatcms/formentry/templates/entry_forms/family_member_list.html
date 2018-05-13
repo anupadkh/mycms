@@ -1,0 +1,20 @@
+{% extends 'entry_forms/user_forms.html' %}
+
+{% block form-title %}
+  <h4 class="card-title">परिवारका सदस्यहरुको विवरण</h4>
+  <p class="card-category">सबै परिवार</p>
+{% endblock %}
+
+{% block form-body %}
+{% for member in family_members %}
+<a href="{% url 'formentry:relation' mooli=0 child=0 %}" role="button">member.full_name</a>
+{% endfor %}
+{% endblock %}
+
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+
+{% endblock %}

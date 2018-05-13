@@ -7,12 +7,13 @@
       <div class="col-md-12">
           <div class="card ">
               <div class="card-header ">
-                  <h4 class="card-title">Forms</h4>
-                  <p class="card-category">Custom Generated Form</p>
+                  <h4 class="card-title">घरको अवस्था</h4>
+                  <p class="card-category">घर मुलीहरुको विवरण</p>
               </div>
               <div class="card-body ">
                   <div id="form" >
-                    <form action="{% url 'formentry:personid' person=personid %}" method="post">
+                    {% block form-body %}
+                    <form action="{% url 'formentry:house_entry' geo=geoid pid=personid %}" method="post">
                       {% csrf_token %}
                       {% for field in form %}
                         <div class="form-group">
@@ -28,9 +29,9 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                    <a class="btn btn-primary" href="{% url 'formentry:address' id=personid pt=0 address=NULL %}" role="button">Add Permanent Address Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:address' id=personid pt=1 address=NULL %}" role="button">Add Temporary Address Details</a>
+
                     <input type="submit" value="submit"/>
+                    {% endblock %}
                   </form>
                   </div>
               </div>
@@ -49,6 +50,7 @@
           <div>
       </div>
   </div>
+</div>
 {% endblock %}
 
 {% block nav %}

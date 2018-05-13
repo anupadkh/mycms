@@ -35,7 +35,7 @@ function showPosition(position) {
 }
 </script>
 {% if id %}
-
+  <a class="btn btn-primary" href="{% url 'formentry:house_person_entry' geo=geoid %}" role="button">Add House In This Coordinates</a>
 {% endif %}
 
 {% endblock %}

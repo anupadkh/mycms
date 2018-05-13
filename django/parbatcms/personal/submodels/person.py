@@ -18,6 +18,7 @@ class Personal(models.Model):
     pub_date = models.DateTimeField('Date Published')
     gened = models.CharField('Generated Id', max_length=60, default="23", blank=True, null=True) #Generated IDS
     creator = models.IntegerField(default=0)
+    # familyhead = models.IntegerField('Is Family Head', default=0)
     def __str__(self):
         return self.full_name();
 
@@ -53,6 +54,7 @@ class Nagrikta(models.Model):
     number = models.CharField(max_length=30)
     district = models.CharField(max_length=30)
     reg_date = models.CharField(max_length=10)
+    card_type = models.IntegerField('Type of Card', default=1)
     def __str__(self):
         return self.number
 
@@ -60,11 +62,12 @@ class Contact(models.Model):
     person = models.ForeignKey(Personal, on_delete=models.CASCADE)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
+    contact_type = models.IntegerField('Type of Contact', default=1)
 
 class Social(models.Model):
     person = models.ForeignKey(Personal, on_delete=models.CASCADE)
-    online = models.IntegerField()
     username = models.CharField(max_length=30)
+    social_type = models.IntegerField('Media Type', default=1)
 
 class Hobby(models.Model):
     person = models.ForeignKey(Personal, on_delete=models.CASCADE)

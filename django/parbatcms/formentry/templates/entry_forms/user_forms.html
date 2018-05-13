@@ -12,6 +12,9 @@
                     {% if form_next == 'house' %}
                       Enter the House Head Details
                     {% endif %}
+                    {% if flag == 'relation' %}
+                      घरका सदस्यहरुको सुचना राख्नुहोस् ।
+                    {% endif %}
                   </p>{% endblock %}
               </div>
 
@@ -20,6 +23,9 @@
                     {% block form-body %}
                     {% if form_next == 'house' %}
                       <form action="{% url 'formentry:house_head' pid=personid coordinates=geo %}" method="post">
+                    {% endif %}
+                    {% if flag == 'relation' %}
+                      <form action="{% url 'formentry:relation' mooli=mooli child=0 entry=0 %}" method="post">
                     {% endif %}
                       {% csrf_token %}
                       {% for field in form %}
@@ -43,7 +49,7 @@
               </div>
               <div class="card-footer ">{% block form-footer %}
                   <div class="legend">
-                    {% if personid != 0 %}
+                    {% if personid %}
                     <a class="btn btn-primary" href="{% url 'formentry:address_entry' id=personid pt=1 %}" role="button">Add Permanent Address Details</a>
                     <a class="btn btn-primary" href="{% url 'formentry:address_entry' id=personid pt=2 %}" role="button">Add Temporary Address Details</a>
                     <a class="btn btn-primary" href="{% url 'formentry:card_details' id=personid card=1 %}" role="button">Add Nagrikta Details</a>
@@ -70,7 +76,13 @@
                 <div class="card-body">{% block form-nav %}
                   {% if form_next == 'house' %}
                     <a class = "btn btn-primary" href ="{% url 'formentry:family_details' geo=geo pid=0 house=0 fid=personid%}" role="button">Go Back</a>
-                  {% endif %}{% endblock %}
+                  {% endif %}
+                  {% if flag %}
+                  {% if  personid %}
+                    <a class = "btn btn-primary" href ="{% url 'formentry:relation' mooli=mooli child=child entry=2 %}" role="button">Add Relation</a>
+                  {% endif %}
+                  {% endif %}
+                  {% endblock %}
               </div>
           </div>
           <div class="card-footer">

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block form-body %}
-<form action="{% url 'formentry:relation_entry' house=house fid=fid geo=geo pid=pid %}" method=post>
+<form action="{% url 'formentry:relation' mooli=mooli child=child entry=entry %}" method=post>
   {% csrf_token %}
   {{form.as_p}}
   <input type="submit" name="submit" value="Submit">

@@ -182,23 +182,35 @@ def family_list(request, geo):
 @login_required(login_url='users:login')
 def member_list(request, family_id):
     my_family = Family.objects.get(pk=family_id)
-    ListofFamilies = Relation.objects.filter(family=my_family)
-    return render(request, 'entry_forms/family_member_list.html',{'families':ListofFamilies, 'geo':geo})
+    try:
+        ListofMembers = Relation.objects.filter(family=my_family)
+    except Relation.DoesNotExist:
+        ListofMembers = {}
+    return render(request, 'entry_forms/family_member_list.html',{'members':ListofMembers, 'mooli':my_family.id })
 
 @login_required(login_url='users:login')
-def relation_entry(request,mooli=0,child=0):
+def relation_entry(request,mooli=0,child=0, entry=0):
     try:
         mool_family = Family.objects.get(id=mooli)
         family_child = Personal.objects.get(id=child)
-        my_relation = Relation.objects.get(family=mool_family, person2=child)
-        form = FamilyForm(request.POST or None, instance=my_family)
-    except Family.DoesNotExist:
-        form = PersonForm(request.POST or None)
+        if entry==0:
+            form = PersonalForm(request.POST or None, instance=family_child)
+            return render(request, 'entry_forms/user_forms.html',{'form':form, 'user':request.user, 'child':child, 'mooli':mooli, 'flag':'relation', 'personid':child })
+    except Personal.DoesNotExist:
+        form = PersonalForm(request.POST or None)
+        if form.is_valid():
+            # New Entry of PersonalForm
+            # form = PersonForm(request.POST or None)
+            saved_entry = form.save()
+            return redirect('formentry:relation', mooli=mooli, child=saved_entry.id, entry=0)
+        return render(request, 'entry_forms/user_forms.html',{'form':form, 'user':request.user, 'mooli':mooli, 'child':child, 'flag':'relation' })
     try:
-        house_families = Family.objects.filter(person1=mooli, myhouse=house)
-    except:
-        house_families = None
+        my_relation = Relation.objects.get(family=mool_family, person2=family_child)
+        form = FamilyForm(request.POST or None, instance=my_relation)
+    except Relation.DoesNotExist:
+        my_relation = Relation(family=mool_family, person2 =family_child)
+        form = RelationForm(request.POST or None, instance=my_relation)
     if form.is_valid():
-        relation_saved =form.save()
-        return redirect('formentry:relation', house=house, family=family_saved.id)
-    return render(request, 'entry_forms/relation.html',{'form':form, 'families':house_families, 'head':mooli, 'bachha':child})
+        relation_saved = form.save()
+        return redirect('formentry:relation', mooli=mooli,  child=child, entry=2)
+    return render(request, 'entry_forms/relation.html',{'form':form, 'mooli':mooli, 'child':child, 'entry':2})

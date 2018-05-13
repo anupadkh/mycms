@@ -23,10 +23,11 @@ urlpatterns = [
         path('house/<int:geo>/<int:pid>/house/',views.house_entry, name='house_entry'),
             path('house/<int:coordinates>/<int:pid>/head/', views.house_head_entry, name='house_head'),
         path('family/<int:house>/<int:fid>/family/<int:geo>/coordinates/<int:pid>/person', views.family_entry, name='family_details'),
-        path('relation/<int:mooli>/<int:child>', views.relation_entry, name='relation'),
+        path('relation/<int:mooli>/<int:child>/<int:entry>/', views.relation_entry, name='relation'),
     # # path('')
 
     path('family/<int:geo>/coordinate/',views.family_list,name='family_list'),
+    path('family/<int:family_id>/members', views.member_list, name="memberlist"),
 
 ]
 

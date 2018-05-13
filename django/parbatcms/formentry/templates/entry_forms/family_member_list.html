@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block form-body %}
-{% for member in family_members %}
-<a href="{% url 'formentry:relation' mooli=0 child=0 %}" role="button">member.full_name</a>
+{% for member in members %}
+<a href="{% url 'formentry:relation' mooli=0 child=0  entry=0 %}" role="button">member</a>
 {% endfor %}
 {% endblock %}
 
@@ -16,5 +16,5 @@
 {% endblock %}
 
 {% block form-nav %}
-
+<a href="{%url 'formentry:relation' mooli=mooli child=0 entry=0 %}" class="btn btn-primary">नयाँ सदस्य</a>
 {% endblock %}

@@ -18,5 +18,6 @@
 {% endblock %}
 
 {% block form-nav %}
-
+<p><a href="{%url 'formentry:relation' mooli=mooli child=0 entry=0 %}" class="btn btn-primary">नयाँ सदस्य थप्नुहोस्</a></p>
+<p><a href="{%url 'formentry:relation' mooli=mooli child=child entry=0 %}" class="btn btn-primary">सदस्यको जानकारी थप्नुहोस्</a></p>
 {% endblock %}

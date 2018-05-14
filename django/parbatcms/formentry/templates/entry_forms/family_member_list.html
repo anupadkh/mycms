@@ -2,12 +2,12 @@
 
 {% block form-title %}
   <h4 class="card-title">परिवारका सदस्यहरुको विवरण</h4>
-  <p class="card-category">सबै परिवार</p>
+  <p class="card-category">परिवार सदस्य</p>
 {% endblock %}
 
 {% block form-body %}
 {% for member in members %}
-<a href="{% url 'formentry:relation' mooli=0 child=0  entry=0 %}" role="button">member</a>
+<p> <a href="{% url 'formentry:relation' mooli=member.family.id child=member.person2.id  entry=0 %}" class="btn btn-danger">{{member.person2.full_name}}</a></p>
 {% endfor %}
 {% endblock %}
 
@@ -17,4 +17,5 @@
 
 {% block form-nav %}
 <a href="{%url 'formentry:relation' mooli=mooli child=0 entry=0 %}" class="btn btn-primary">नयाँ सदस्य</a>
+<a href="{%url 'formentry:family_list' geo=geo %}" class="btn btn-primary">परिवारमा फर्कनुहोस् ।</a>
 {% endblock %}

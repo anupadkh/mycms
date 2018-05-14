@@ -1,0 +1,22 @@
+{% extends 'entry_forms/user_forms.html' %}
+
+{% block form-title %}
+  <h4 class="card-title">{{formtitle}}</h4>
+  <p class="card-category">{{formdescription}}</p>
+{% endblock %}
+
+{% block form-body %}
+{% for member in lists %}
+<p><a href="{% url 'formentry:family_details' fid=member.id geo=geo pid=0 house=1 %}" class="btn btn-primary">{{member}}</a></p>
+{% endfor %}
+{% endblock %}
+
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+{% if next %}
+<a class="btn btn-primary" href="{{next}}">Next</a>
+{% endif %}
+{% endblock %}

@@ -80,6 +80,7 @@
                   {% if flag %}
                   {% if  personid %}
                     <a class = "btn btn-primary" href ="{% url 'formentry:relation' mooli=mooli child=child entry=2 %}" role="button">Add Relation</a>
+                    <a class = "btn btn-primary" href ="{% url 'formentry:memberlist' family_id=mooli %}" role="button">परिवारका अन्य सदस्यमा जानुहोस् ।</a>
                   {% endif %}
                   {% endif %}
                   {% endblock %}

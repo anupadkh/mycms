@@ -5,6 +5,7 @@ from django.db import models
 
 # Create your models here.
 from personal.submodels.person import *
+from personal.submodels.person_details import *
 from personal.submodels.family import *
 from personal.submodels.formentry import *
 # from submodels/incomes.py import *

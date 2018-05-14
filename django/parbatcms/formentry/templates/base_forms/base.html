@@ -1,14 +1,15 @@
 {% extends 'entry_forms/user_forms.html' %}
 
 {% block form-title %}
-  <h4 class="card-title">परिवारको विवररण</h4>
-  <p class="card-category">सबै परिवारका घरमुली</p>
+  <h4 class="card-title">{{formtitle}}</h4>
+  <p class="card-category">{{formdescription}}</p>
 {% endblock %}
 
 {% block form-body %}
-{% for member in families %}
+<form action="{% url %}" method="post">
+
+</form>
 <p><a href="{% url 'formentry:family_details' fid=member.id geo=geo pid=0 house=1 %}" class="btn btn-primary">{{member}}</a></p>
-{% endfor %}
 {% endblock %}
 
 {% block form-footer %}

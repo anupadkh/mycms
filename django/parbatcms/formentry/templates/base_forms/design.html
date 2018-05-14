@@ -1,0 +1,24 @@
+{% extends 'entry_forms/user_forms.html' %}
+
+{% block form-title %}
+  <h4 class="card-title">{{formtitle}}</h4>
+  <p class="card-category">{{formdescription}}</p>
+{% endblock %}
+
+{% block form-body %}
+<form action="{{url}}" method="post">
+{{form}}
+{% csrf_token %}
+<input type="submit" name="Submit" value="Submit" class="btn btn-danger">
+</form>
+{% endblock %}
+
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+{% if next %}
+<a class="btn btn-primary" href="{{next}}">Next</a>
+{% endif %}
+{% endblock %}

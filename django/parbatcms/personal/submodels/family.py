@@ -33,7 +33,7 @@ class House(models.Model):
 
 
 class Relation(models.Model):
-    family = models.ForeignKey(Family, on_delete=models.CASCADE, related_name='relationhead')
+    family = models.ForeignKey(Family, on_delete=models.CASCADE)
     person2 = models.ForeignKey(Personal, on_delete=models.CASCADE)
     relntype = models.CharField(max_length=50)
     def __str__(self):

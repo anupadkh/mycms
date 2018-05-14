@@ -7,8 +7,29 @@ from django.http import Http404
 from formentry.submodals.formGenerator import *
 
 @login_required(login_url='users:login')
-def mainforms(request,form_id,formtype,member):
-    return render(request, 'base_forms/base.html')
+def mainforms(request,form_id, member, mark, marker):
+    the_form = formValue.objects.get(id=form_id)
+    tables = headings.objects.filter(formID=the_form)
+    formquestions = []
+    # Building an array of fields
+    for table in tables:
+        table_questions = (questions.objects.filter(tableID = table))
+        table_questions_list = []
+        for one_question in table_questions:
+            queschoices = QuestionChoice.objects.filter(questionID = one_question)
+            quesAndchoice = dict(zip(
+                ['question', 'choice'],
+                [one_question, queschoices]
+            ))
+            table_questions_list.append(quesAndchoice)
+        formquestions.append(dict(zip(
+            ['table', 'table_questions'],
+            [table, table_questions_list]
+        )))
+
+    return render(request, 'base_forms/displayform.html',{
+        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker,
+    })
 
 login_required(login_url='users:login')
 def index(request):

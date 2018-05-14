@@ -43,6 +43,8 @@ class questions(models.Model):
     description = models.TextField('Description(विवरण)', null=True, default=' ')
     def __str__(self):
         return self.question;
+    def name(self):
+        return str(self.id) + "_" + str(self.tableID)
 
 class QuestionChoice (models.Model):
     questionID = models.ForeignKey(questions, on_delete=models.CASCADE)

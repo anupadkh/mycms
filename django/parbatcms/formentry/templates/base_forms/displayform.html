@@ -1,0 +1,47 @@
+{% extends 'entry_forms/user_forms.html' %}
+{% load widget_tweaks %}
+{% block form-title %}
+  <h4 class="card-title">{{form.formName}}</h4>
+  <p class="card-category">{{form.markers}}</p>
+{% endblock %}
+
+{% block form-body %}
+<form action="{{request.path}}" method="post">
+{% for tables in formquestions %}
+  <p><strong>{{tables.table.tableName}}</strong></p>
+  {% if tables.table_questions %}{% else %}
+  Sorry, No questions are added for this table
+  {% endif %}
+  {% for one_question in tables.table_questions %}
+    <div class="form-group row">
+      <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-sm-4 col-form-label">{{one_question.question}}</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control plaintext" {% if one_question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="{{one_question.question.name}}[]">
+      </div>
+      <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
+    </div>
+
+
+  {% endfor %}
+
+{% endfor %}
+{% csrf_token %}
+<input type="submit" name="Submit" value="Submit" class="btn btn-danger">
+</form>
+{% endblock %}
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+{% if next %}
+<a class="btn btn-primary" href="{{next}}">Next</a>
+{% endif %}
+{% if back %}
+<p><a class="btn btn-primary" href="{{back}}">पछाडी</a></p>
+{% endif %}
+{% if new %}
+<a class="btn btn-primary" href="{{new}}">अर्को थप्नुहोस् ।</a>
+{% endif %}
+<a class="btn btn-danger" href="/forms/design/">सबै फारम हेर्नुहोस् । </a>
+{% endblock %}

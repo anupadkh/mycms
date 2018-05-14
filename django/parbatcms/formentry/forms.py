@@ -3,7 +3,7 @@ from personal.models import *
 
 class PersonalForm(ModelForm):
     def form_valid(self, form):
-        form.instance.creator = self.request.user
+        form.instance.creator = self.request.user.username
         return super(PersonalForm, self).form_valid(form)
 
     class Meta:

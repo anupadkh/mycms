@@ -16,7 +16,7 @@ class tableForm(ModelForm):
         model=headings
         fields = '__all__'
 
-class fieldForm(ModelForm):
+class questionForm(ModelForm):
     class Meta:
         model=questions
         fields = '__all__'

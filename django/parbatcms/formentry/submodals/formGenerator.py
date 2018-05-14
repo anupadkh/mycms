@@ -5,6 +5,10 @@ import datetime
 class formValue(models.Model):
     formName = models.TextField('Form Name (फारमको नाम)')
     markers = models.IntegerField('Total Markers (प्राप्ताङ्कको जम्मा सङ्ख्या)', default=1)
+    formTypeChoices = (
+    (1,'House'), (2,'Family'), (3, 'Individual')
+    )
+    formType = models.IntegerField('Form Target Group',choices=formTypeChoices, default=3)
     def __str__(self):
         return self.formName;
 

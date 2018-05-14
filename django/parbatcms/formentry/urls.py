@@ -18,7 +18,7 @@ urlpatterns = [
         path('people/<int:id>/<int:card>/card', views.card_entry, name='card_details'),
         path('people/<int:id>/<int:contact>/contact', views.contact_entry, name='contact_details'),
         path('people/<int:id>/<int:media>/media', views.social_entry, name='social_details'),
-        path('people/<int:id>/hobby', views.hobby_entry, name='hobby'),
+        path('people/<int:id>/<int:hobby>/hobby', views.hobby_entry, name='hobby'),
 
     path('geo/<int:id>/', views.geo_entry, name='geo'),
         path('house/<int:geo>/<int:pid>/house/',views.house_entry, name='house_entry'),

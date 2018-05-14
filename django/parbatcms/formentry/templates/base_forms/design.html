@@ -1,5 +1,5 @@
 {% extends 'entry_forms/user_forms.html' %}
-
+{% load widget_tweaks %}
 {% block form-title %}
   <h4 class="card-title">{{formtitle}}</h4>
   <p class="card-category">{{formdescription}}</p>
@@ -7,7 +7,20 @@
 
 {% block form-body %}
 <form action="{{url}}" method="post">
-{{form}}
+  {% for field in form %}
+    <div class="form-group">
+        {{ field.errors }}
+        {{ field.label_tag }}
+        {% if field.name != 'pub_date' %}
+          {{ field |attr:"class:form-control" }}
+        {% else %}
+          {{ field |attr:"class:datetime-input form-control" }}
+        {% endif %}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
 {% csrf_token %}
 <input type="submit" name="Submit" value="Submit" class="btn btn-danger">
 </form>

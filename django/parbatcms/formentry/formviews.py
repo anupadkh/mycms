@@ -29,7 +29,8 @@ def formindex(request,id):
     form = mainForm(request.POST or None, instance=forminstance)
     if form.is_valid():
         savedform = form.save()
-    url = '/forms/design/' + str(savedform.id) +'/main/'
+        id= savedform.id
+    url = '/forms/design/' + str(id) +'/main/'
     return render(request, 'base_forms/design.html',{'form':form, 'url':url, 'next': nextPage})
 
 login_required(login_url='users:login')

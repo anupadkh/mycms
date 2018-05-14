@@ -72,6 +72,7 @@ def questionindex(request,id):
 
 login_required(login_url='users:login')
 def submit_questionindex(request,tid,qid):
+    newLink = '/forms/design/'+str(tid)+'/table/0/myquestion/'
     #copied from submit_tableindex mainform: maintable, table:question, saved_table: saved_question
     id=qid
     mainform = headings.objects.get(id=tid)
@@ -88,7 +89,7 @@ def submit_questionindex(request,tid,qid):
         return redirect('formentry:submit_questionindex', tid=mainform.id, qid=saved_table.id)
     url = '/forms/design/' + str(tid) +'/table/'+ str(id) + '/myquestion/'
     nextPage = '/forms/design/' + str(id) + '/choice'
-    return render(request, 'base_forms/design.html',{'form':form, 'url':url, 'next': nextPage})
+    return render(request, 'base_forms/design.html',{'form':form, 'url':url, 'next': nextPage, 'new':newLink})
 
 login_required(login_url='users:login')
 def choiceindex(request,id):

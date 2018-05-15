@@ -42,7 +42,7 @@ class questions(models.Model):
     unanswering = models.BooleanField('Unanswering is Allowed?', default=0,
         choices=mandatory
     )
-    description = models.TextField('Description(विवरण)', null=True, default=' ')
+    description = models.TextField('Description(विवरण)', null=True, default='')
     def __str__(self):
         return self.question;
     def name(self):

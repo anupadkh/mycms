@@ -17,4 +17,5 @@
 
 {% block form-nav %}
 <a href="{% url 'formentry:family_details' geo=geo fid=0 pid=0 house=0%}" role="button" class="btn btn-primary">नयाँ परिवार थप्नुहोस् </a>
+<a class="btn btn-primary" href="{% url 'formentry:memberforms' member=geo memtype=1 %}" role="button">Add More Details</a>
 {% endblock %}

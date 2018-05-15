@@ -20,4 +20,5 @@
 {% block form-nav %}
 <a href="{%url 'formentry:relation' mooli=mooli child=0 entry=0 %}" class="btn btn-primary">नयाँ सदस्य</a>
 <a href="{%url 'formentry:family_list' geo=geo %}" class="btn btn-primary">परिवारमा फर्कनुहोस् ।</a>
+<a class="btn btn-primary" href="{% url 'formentry:memberforms' member=mooli memtype=2 %}" role="button">Add More Details</a>
 {% endblock %}

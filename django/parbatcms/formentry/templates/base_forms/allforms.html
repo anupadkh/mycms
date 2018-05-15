@@ -8,7 +8,7 @@
 {% block form-body %}
 {% for forms in allforms %}
 {% with mytype=forms.formType   %}
-<p><a href="{% url 'formentry:form_basic' form_id=forms.id member=0 mark=0 marker=0 %}" class="btn btn-primary">{{forms}} : Type {{mytype}}</a></p>
+<p><a href="{% url 'formentry:form_basic' form_id=forms.id member=member mark=mark marker=marker %}" class="btn btn-primary">{{forms}} : Type {{mytype}}</a></p>
 {% endwith %}
 {% endfor %}
 {% endblock %}

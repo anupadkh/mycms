@@ -186,12 +186,13 @@ def family_list(request, geo):
 @login_required(login_url='users:login')
 def member_list(request, family_id):
     my_family = Family.objects.get(pk=family_id)
+    head = my_family.person_head
     try:
         ListofMembers = Relation.objects.filter(family=my_family)
     except Relation.DoesNotExist:
         ListofMembers = {}
     geo = my_family.myhouse.id # To reference back to family from member_list.html
-    return render(request, 'entry_forms/family_member_list.html',{'members':ListofMembers, 'mooli':my_family.id, 'geo':geo })
+    return render(request, 'entry_forms/family_member_list.html',{'members':ListofMembers, 'mooli':my_family.id, 'geo' : geo , 'head':head })
 
 @login_required(login_url='users:login')
 def relation_entry(request,mooli=0,child=0, entry=0):
@@ -207,7 +208,7 @@ def relation_entry(request,mooli=0,child=0, entry=0):
             # New Entry of PersonalForm
             # form = PersonForm(request.POST or None)
             saved_entry = form.save()
-            return redirect('formentry:relation', mooli=mooli, child=saved_entry.id, entry=0)
+            return redirect('formentry:relation', mooli=mooli, child=saved_entry.id, entry=1)
         return render(request, 'entry_forms/user_forms.html',{'form':form, 'user':request.user, 'mooli':mooli, 'child':child, 'flag':'relation' })
 
     try:

@@ -34,7 +34,14 @@ def mainforms(request,form_id, member, mark, marker):
 @login_required(login_url='users:login')
 def all_my_forms(request):
     allforms = formValue.objects.all()
-    return render(request,'base_forms/allforms.html',{'allforms':allforms})
+    return render(request,'base_forms/allforms.html',{'allforms':allforms, 'member':0, 'mark':0, 'marker':0 })
+
+@login_required(login_url='users:login')
+def all_member_forms(request,member,memtype):
+    allforms = formValue.objects.filter(formType=memtype)
+    return render(request,'base_forms/allforms.html',{'allforms':allforms, 'member':member, 'mark':1, 'marker':request.user.username })
+
+1254185550
 
 login_required(login_url='users:login')
 def index(request):

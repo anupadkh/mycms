@@ -25,7 +25,7 @@
                       <form action="{% url 'formentry:house_head' pid=personid coordinates=geo %}" method="post">
                     {% endif %}
                     {% if flag == 'relation' %}
-                      <form action="{% url 'formentry:relation' mooli=mooli child=0 entry=0 %}" method="post">
+                      <form action="{% url 'formentry:relation' mooli=mooli child=child entry=0 %}" method="post">
                     {% endif %}
                       {% csrf_token %}
                       {% for field in form %}

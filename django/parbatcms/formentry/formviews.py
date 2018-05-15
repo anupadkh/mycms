@@ -39,7 +39,7 @@ def all_my_forms(request):
 @login_required(login_url='users:login')
 def all_member_forms(request,member,memtype):
     allforms = formValue.objects.filter(formType=memtype)
-    return render(request,'base_forms/allforms.html',{'allforms':allforms, 'member':member, 'mark':1, 'marker':request.user.username })
+    return render(request,'base_forms/allforms.html',{'allforms':allforms, 'member':member, 'mark':1, 'marker':request.user.id })
 
 1254185550
 

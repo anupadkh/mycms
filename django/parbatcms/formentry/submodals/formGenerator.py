@@ -35,7 +35,7 @@ class questions(models.Model):
     answerType = models.CharField(
         max_length=2,
         choices=answerChoices,
-        default=simpletext,
+        default=yesno,
     )
     marks = models.FloatField('Marks', default=10)
     mandatory=((False,'Yes (खाली छोडे पनि हुने)'), (True, 'No (भर्नै पर्ने)'))

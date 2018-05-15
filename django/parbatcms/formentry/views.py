@@ -40,7 +40,7 @@ def address_entry(request,id,pt):
     if form.is_valid():
         person_saved = form.save()
         return redirect('formentry:personid', person=id)
-    return render(request, 'entry_forms/address.html',{'form':form, 'addressType':pt, 'person': id})
+    return render(request, 'entry_forms/user_details.html',{'form':form, 'addressType':pt, 'person': id})
 
 @login_required(login_url='users:login')
 def card_entry(request,id,card):

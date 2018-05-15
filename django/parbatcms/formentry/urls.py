@@ -31,6 +31,8 @@ urlpatterns = [
     path('family/<int:family_id>/members', views.member_list, name="memberlist"),
 
     path('myform/<int:form_id>/member/<int:member>/marktype/<int:mark>/<int:marker>/', formviews.mainforms, name='form_basic'),
+    path('myform/all_forms', formviews.all_my_forms, name='all_my_forms'),
+
     url(r'^design/$', formviews.index, name='form_index'),
     path('design/<int:id>/main/', formviews.formindex, name='submit_formindex'),
     path('design/<int:id>/table/', formviews.tableindex, name='table_index'),

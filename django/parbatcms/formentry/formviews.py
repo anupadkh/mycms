@@ -31,6 +31,11 @@ def mainforms(request,form_id, member, mark, marker):
         'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker,
     })
 
+@login_required(login_url='users:login')
+def all_my_forms(request):
+    allforms = formValue.objects.all()
+    return render(request,'base_forms/allforms.html',{'allforms':allforms})
+
 login_required(login_url='users:login')
 def index(request):
     myforms = formValue.objects.all()

@@ -16,7 +16,7 @@
     <div class="form-group row">
       <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label">{{one_question.question}}</label>
       <div class="col-md-6">
-          {% if one_question.question.answerType == 'nv' %}
+          {% if one_question.question.answerType == 'sc' %}
           <select class="form-control" name="{{one_question.question.name}}[]">
             {% for choices in one_question.choice %}
               <option value="{{choices.id}}">{{choices}}</option>

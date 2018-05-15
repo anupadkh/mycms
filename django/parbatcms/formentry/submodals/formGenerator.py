@@ -23,10 +23,12 @@ class questions(models.Model):
     multiplechoices = 'mc'
     selectchoices = 'sc'
     numberValue = 'nv'
+    yesno = 'yn'
     answerChoices = ((simpletext, 'Simple Text'),
         (multiplechoices, 'Multiple Choices'),
         (selectchoices, 'Select Choices'),
-        (numberValue, 'Number Value')
+        (numberValue, 'Number Value'),
+        (yesno, 'Yes/No Question')
     )
     tableID = models.ForeignKey(headings, on_delete=models.CASCADE)
     question = models.TextField('Question (प्रश्न)')

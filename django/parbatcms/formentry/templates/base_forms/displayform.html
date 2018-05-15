@@ -14,9 +14,22 @@
   {% endif %}
   {% for one_question in tables.table_questions %}
     <div class="form-group row">
-      <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-sm-4 col-form-label">{{one_question.question}}</label>
-      <div class="col-sm-8">
-        <input type="text" class="form-control plaintext" {% if one_question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="{{one_question.question.name}}[]">
+      <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label">{{one_question.question}}</label>
+      <div class="col-md-6">
+          {% if one_question.question.answerType == 'nv' %}
+          <select class="form-control" name="{{one_question.question.name}}[]">
+            {% for choices in one_question.choice %}
+              <option value="{{choices.id}}">{{choices}}</option>
+            {% endfor %}
+          </select>
+          {% elif one_question.question.answerType == 'yn'  %}
+          <select class="form-control" name="{{one_question.question.name}}[]">
+            <option value="1">छ (हो)</option>
+            <option value="0">छैन (होइन)</option>
+          </select>
+          {% else %}
+            <input type="text" class="form-control plaintext" {% if one_question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="{{one_question.question.name}}[]">
+          {% endif %}
       </div>
       <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
     </div>

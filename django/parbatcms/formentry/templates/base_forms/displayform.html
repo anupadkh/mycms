@@ -14,7 +14,7 @@
   {% endif %}
   {% for one_question in tables.table_questions %}
     <div class="form-group row">
-      <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label">{{one_question.question}}</label>
+      <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label">{{one_question.question}} {% if mark >= 1 %} अङ्क भार: {{one_question.question.marks}} {% endif %}</label>
       <div class="col-md-6">
           {% if one_question.question.answerType == 'sc' %}
           <select class="form-control" name="{{one_question.question.name}}[]">

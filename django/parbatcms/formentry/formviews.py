@@ -26,9 +26,9 @@ def mainforms(request,form_id, member, mark, marker):
             ['table', 'table_questions'],
             [table, table_questions_list]
         )))
-
+    no_of_markings = the_form.markers
     return render(request, 'base_forms/displayform.html',{
-        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member
+        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings
     })
 
 @login_required(login_url='users:login')
@@ -126,6 +126,7 @@ def submit_questionindex(request,tid,qid):
 login_required(login_url='users:login')
 def choiceindex(request,id):
     try:
+        myquestion = questions.objects.get(id=id)
         choices = QuestionChoice.objects.filter(questionID=id)
     except QuestionChoice.DoesNotExist:
         redirect(request,'formentry:submit_choiceindex',cid=0, qid=id)

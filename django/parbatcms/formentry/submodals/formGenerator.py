@@ -14,7 +14,7 @@ class formValue(models.Model):
 
 class headings(models.Model):
     formID = models.ForeignKey(formValue, on_delete=models.CASCADE)
-    tableName = models.TextField('Table Name')
+    tableName = models.TextField('Table Name (फारमभित्रको टेबलको हेडिङ्ग)')
     def __str__(self):
         return self.tableName;
 
@@ -39,7 +39,7 @@ class questions(models.Model):
     )
     marks = models.FloatField('Marks', default=10)
     mandatory=((False,'Yes (खाली छोडे पनि हुने)'), (True, 'No (भर्नै पर्ने)'))
-    unanswering = models.BooleanField('Unanswering is Allowed?', default=0,
+    unanswering = models.BooleanField('उत्तर दिन पर्ने/नपर्ने', default=0,
         choices=mandatory
     )
     description = models.TextField('Description(विवरण)', null=True, default='')

@@ -28,7 +28,7 @@ def mainforms(request,form_id, member, mark, marker):
         )))
 
     return render(request, 'base_forms/displayform.html',{
-        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker,
+        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member
     })
 
 @login_required(login_url='users:login')
@@ -41,7 +41,6 @@ def all_member_forms(request,member,memtype):
     allforms = formValue.objects.filter(formType=memtype)
     return render(request,'base_forms/allforms.html',{'allforms':allforms, 'member':member, 'mark':1, 'marker':request.user.id })
 
-1254185550
 
 login_required(login_url='users:login')
 def index(request):

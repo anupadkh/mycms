@@ -39,7 +39,7 @@
 
 {% endfor %}
 {% csrf_token %}
-<input type="submit" name="Submit" value="Submit" class="btn btn-danger">
+<input type="submit" name="Submit" value="Submit" class="btn btn-danger" {% if member < 1 %}disabled{% endif %} />
 </form>
 {% endblock %}
 {% block form-footer %}

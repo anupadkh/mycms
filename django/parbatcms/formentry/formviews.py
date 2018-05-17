@@ -26,9 +26,9 @@ def mainforms(request,form_id, member, mark, marker):
             ['table', 'table_questions'],
             [table, table_questions_list]
         )))
-    var = []
-    for i in range (1, the_form.markers + 1):
-        var = var.append('mark'+str(i))
+    # var = []
+    # for i in range (1, the_form.markers + 1):
+        # var = var.append('mark' + str(i))
     no_of_markings = the_form.markers
     return render(request, 'base_forms/displayform.html',{
         'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings

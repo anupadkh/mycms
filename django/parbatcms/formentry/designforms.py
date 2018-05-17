@@ -20,8 +20,18 @@ class questionForm(ModelForm):
     class Meta:
         model=questions
         fields = '__all__'
+        widgets = {
+            'sub_question' : HiddenInput(),
+        }
 
 class choiceForm(ModelForm):
     class Meta:
         model=QuestionChoice
         fields = '__all__'
+        widgets ={
+            'weight': HiddenInput(),
+        }
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user.username
+        return super(PersonalForm, self).form_valid(form)

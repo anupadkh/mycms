@@ -42,6 +42,8 @@ urlpatterns = [
     path('design/<int:tid>/table/<int:qid>/myquestion/', formviews.submit_questionindex, name='submit_questionindex'),
     path('design/<int:id>/choice/', formviews.choiceindex, name='choice_index'),
     path('design/<int:qid>/question/<int:cid>/mychoice/', formviews.submit_choiceindex, name='submit_choiceindex'),
+
+    path('design/test', formviews.seePost, name="testing"),
 ]
 
 #Namespacing URL Names

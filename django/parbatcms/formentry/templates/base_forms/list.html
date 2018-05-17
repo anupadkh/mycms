@@ -16,6 +16,9 @@
 {% if ques_type %}
 <p><a href="{% url 'formentry:submit_questionindex' tid=tid qid=member.id %}" class="btn btn-primary">{{member}}</a></p>
 {% endif %}
+{% if choice_type %}
+<p><a href="{% url 'formentry:submit_choiceindex' qid=qid cid=member.id %}" class="btn btn-primary">{{member}}</a></p>
+{% endif %}
 {% endfor %}
 {% endblock %}
 

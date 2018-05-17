@@ -50,7 +50,9 @@ class questions(models.Model):
 
 class QuestionChoice (models.Model):
     questionID = models.ForeignKey(questions, on_delete=models.CASCADE)
+    sub_question = models.ForeignKey(questions, on_delete=models.CASCADE, null=True, blank=True)
     choiceDescription = models.TextField('Choice')
-    choiceMarks = models.TextField('Choice Marks')
+    weight = models.IntegerField('Order', null=True, blank=True)
+    choiceMarks = models.TextField('Choice Marks', null=True, blank=True)
     def __str__(self):
         return self.choiceDescription;

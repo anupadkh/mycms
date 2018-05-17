@@ -26,6 +26,9 @@ def mainforms(request,form_id, member, mark, marker):
             ['table', 'table_questions'],
             [table, table_questions_list]
         )))
+    var = []
+    for i in range (1, the_form.markers + 1):
+        var = var.append('mark'+str(i))
     no_of_markings = the_form.markers
     return render(request, 'base_forms/displayform.html',{
         'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings
@@ -156,3 +159,11 @@ def submit_choiceindex(request,cid,qid):
 def designform(request,form_id=0):
     if form_id==0:
         return render(request, 'base_forms/base.html')
+
+def seePost(request):
+    from pprint import pprint
+    pprint(globals())
+    # pprint(locals())
+
+    if request.POST:
+        return render(request, 'base_forms/mytemplate.html',{})

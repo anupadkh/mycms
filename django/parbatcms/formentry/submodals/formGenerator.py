@@ -37,7 +37,7 @@ class questions(models.Model):
         choices=answerChoices,
         default=yesno,
     )
-    sub_question = models.ForeignKey(questions, on_delete=models.CASCADE, null=True, blank=True)
+    # sub_question = models.ForeignKey(questions, on_delete=models.CASCADE, null=True, blank=True)
     marks = models.FloatField('Marks', default=10)
     mandatory=((False,'Yes (खाली छोडे पनि हुने)'), (True, 'No (भर्नै पर्ने)'))
     unanswering = models.BooleanField('उत्तर दिन पर्ने/नपर्ने', default=0,

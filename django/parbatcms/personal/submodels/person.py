@@ -19,6 +19,10 @@ class Personal(models.Model):
     pub_date = models.DateTimeField('Date Published')
     gened = models.CharField('Generated Id', max_length=60, default="23", blank=True, null=True) #Generated IDS
     creator = models.IntegerField(default=0)
+    male_female = (
+    (1,'पुरुष । male'), (2,'महिला | Female'), (3, 'तेस्रो लिङ्गि'), (4, 'अन्य'),
+    )
+    gender = models.IntegerField('लिङ्ग | Gender', choices=male_female, default=1)
     # familyhead = models.IntegerField('Is Family Head', default=0)
     def __str__(self):
         return self.full_name();

@@ -7,7 +7,7 @@
 
 {% block form-body %}
 
-<h2><a href="{% url 'formentry:delete_entry' id=formquestions.0.table.formID.id del_type=1 %}"> Delete हटाउनुहोस् </a></h2>
+<h2><a href="{% url 'formentry:delete_entry' id=form.id del_type=1 %}"> Delete हटाउनुहोस् </a></h2>
 {% for tables in formquestions %}
   <p><strong>{{tables.table.tableName}}</strong></p>
 

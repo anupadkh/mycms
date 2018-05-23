@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'personal.apps.PersonalConfig',
     'formentry.apps.FormentryConfig',
     'users.apps.UsersConfig',
-    'postform.apps.PostformConfig',
     # 'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -85,27 +84,13 @@ WSGI_APPLICATION = 'parbatcms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'parbatcms',
+        'USER': 'root',
+        'PASSWORD': 'adhikari123',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
-    ,
-    # 'default1': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'parbatcms',
-    #     'USER': 'root',
-    #     'PASSWORD': 'adhikari123',
-    #     'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-    #     'PORT': '3306',
-    # },
-    # 'default2': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'parbatcms',
-    #     'USER': 'root',
-    #     'PASSWORD': 'Adhik@r!',
-    #     'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-    #     'PORT': '3306',
-    #     'CHARSET':'utf8',
-    # }
 }
 
 

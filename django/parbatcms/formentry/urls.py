@@ -31,9 +31,13 @@ urlpatterns = [
     path('family/<int:family_id>/members', views.member_list, name="memberlist"),
 
     path('myform/<int:form_id>/member/<int:member>/marktype/<int:mark>/<int:marker>/', formviews.mainforms, name='form_basic'),
-    path('printform/<int:form_id>/member/<int:member>/marktype/<int:mark>/<int:marker>/', formviews.printforms, name='printforms'),
     path('myform/all_forms', formviews.all_my_forms, name='all_my_forms'),
     path('userforms/<int:member>/type/<int:memtype>', formviews.all_member_forms, name='memberforms'),
+        path('deleteform/<int:form_id>/member/<int:member>/marktype/<int:mark>/<int:marker>/', formviews.deleteforms, name='deleteforms'),
+        path('printform/<int:form_id>/member/<int:member>/marktype/<int:mark>/<int:marker>/', formviews.printforms, name='printforms'),
+        path('myform/print_forms', formviews.print_my_forms, name='print_my_forms'),
+        path('myform/delete_forms', formviews.delete_my_forms, name='delete_my_forms'),
+        path('delete/<int:id>/type/<int:del_type>/', formviews.deleteEntry, name='delete_entry'),
 
     url(r'^design/$', formviews.index, name='form_index'),
     path('design/<int:id>/main/', formviews.formindex, name='submit_formindex'),

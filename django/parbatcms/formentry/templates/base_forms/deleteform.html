@@ -1,0 +1,48 @@
+{% extends 'entry_forms/user_forms.html' %}
+{% load widget_tweaks %}
+{% block form-title %}
+  <h4 class="card-title">{{form.formName}}</h4>
+  <p class="card-category">जम्मा प्रश्नकर्ता सङ्ख्या =‍ {{form.markers}}</p>
+{% endblock %}
+
+{% block form-body %}
+
+<h2><a href="{% url 'formentry:delete_entry' id=formquestions.0.table.formID.id del_type=1 %}"> Delete हटाउनुहोस् </a></h2>
+{% for tables in formquestions %}
+  <p><strong>{{tables.table.tableName}}</strong></p>
+
+  <h3><a href="{% url 'formentry:submit_tableindex' tid=tables.table.id formid=tables.table.formID.id %}">Edit अद्यावद्यिक गर्नुहोस्</a></h3>
+  <h3><a href="{% url 'formentry:delete_entry' id=tables.table.id del_type=2 %}"> Delete हटाउनुहोस् </a></h3>
+  {% for one_question in tables.table_questions %}
+    <div class="form-group row">
+      <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label"><p style="color:red;">{{one_question.question}} {% if mark >= 1 %}</p><p> अङ्क भार: {{one_question.question.marks}} {% endif %}</p></label>
+      <div class="col-md-6">
+          <h4><a href="{% url 'formentry:submit_questionindex' qid=one_question.question.id tid=tables.table.id %}">Edit अद्यावद्यिक गर्नुहोस्</a></h4>
+          <h4><a href="{% url 'formentry:delete_entry' id=one_question.question.id del_type=3 %}"> Delete हटाउनुहोस् </a></h4>
+      </div>
+      <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
+      <input type="hidden" name="member" value = "{{member}}"/>
+    </div>
+
+
+  {% endfor %}
+
+{% endfor %}
+
+{% endblock %}
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+{% if next %}
+<a class="btn btn-primary" href="{{next}}">Next</a>
+{% endif %}
+{% if back %}
+<p><a class="btn btn-primary" href="{{back}}">पछाडी</a></p>
+{% endif %}
+{% if new %}
+<a class="btn btn-primary" href="{{new}}">अर्को थप्नुहोस् ।</a>
+{% endif %}
+<a class="btn btn-danger" href="/forms/design/">सबै फारम हेर्नुहोस् । </a>
+{% endblock %}

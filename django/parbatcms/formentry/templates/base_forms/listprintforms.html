@@ -1,0 +1,30 @@
+{% extends 'entry_forms/user_forms.html' %}
+{% load widget_tweaks %}
+{% block form-title %}
+  <h4 class="card-title">सबै फारमहरु</h4>
+  <p class="card-category">यी फारमहरु हेर्नको लागि मात्र हो ।</p>
+{% endblock %}
+
+{% block form-body %}
+{% for forms in allforms %}
+{% with mytype=forms.formType   %}
+<p><a href="{% url 'formentry:form_basic' form_id=forms.id member=member mark=mark marker=marker %}" class="btn btn-primary">{{forms}} : Type {{mytype}}</a></p>
+{% endwith %}
+{% endfor %}
+{% endblock %}
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+{% if next %}
+<a class="btn btn-primary" href="{{next}}">Next</a>
+{% endif %}
+{% if back %}
+<p><a class="btn btn-primary" href="{{back}}">पछाडी</a></p>
+{% endif %}
+{% if new %}
+<a class="btn btn-primary" href="{{new}}">अर्को थप्नुहोस् ।</a>
+{% endif %}
+<a class="btn btn-danger" href="{% url 'formentry:print_my_forms' %}">सबै फारम हेर्नुहोस् । </a>
+{% endblock %}

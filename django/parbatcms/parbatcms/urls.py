@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^personal/', include('personal.urls')),
     url(r'^forms/', include('formentry.urls')),
     url(r'^users/', include('users.urls')),
+    url(r'^post/', include('postform.urls')),
 
 ]

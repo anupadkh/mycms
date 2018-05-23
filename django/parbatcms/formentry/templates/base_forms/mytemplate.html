@@ -6,7 +6,30 @@
 {% endblock %}
 
 {% block form-body %}
-{% %}
+<form action="{% url 'postform:saveposts' %}" method="post">
+
+{% for qna, ans, choice  in field_choices %}
+<div class="form-group row">
+  <div class="col-md-8">
+    <h4>{{qna}}</h4><input type="hidden" value="{{qna.id}}" name="questions[]"/>
+    <p>{{choice}}</p><input type="hidden" value="{{ans}}" name="answers[]"/>
+  </div>
+  <div class="col-md-4 form-group row">
+    {% for i,j in markers %}
+      <label style="text-align:right; font-size:12px; text-transform:none;" class="col-xs-6 col-form-label">{{j}}</label>
+      <div class="col-xs-6">
+        <input name="{{i}}[]" type="number" size="4" style="width:80px"/>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
+{% csrf_token %}
+<input type="hidden" name="formid" value="{{form.id}}"/>
+<input type="hidden" name = "member" value="{{member}}"/>
+<input type="submit" value="Submit"/>
+</form>
+
 {% endblock %}
 
 {% block form-footer %}

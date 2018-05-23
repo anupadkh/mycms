@@ -49,6 +49,11 @@ class questions(models.Model):
     def name(self):
         return str(self.id) + "_" + str(self.tableID)
 
+# class subquestion(models.Model):
+#     main = models.ForeignKey( questions, on_delete=models.CASCADE, related_name='मुख्य प्रश्न')
+#     subquestion = models.ForeignKey(questions, on_delete=models.CASCADE, related_name='दोस्रो प्रश्न')
+#     questable = models.ForeignKey(headings, on_delete=models.CASCADE)
+
 class QuestionChoice (models.Model):
     questionID = models.ForeignKey(questions, on_delete=models.CASCADE)
     choiceDescription = models.TextField('Choice')

@@ -43,7 +43,9 @@ urlpatterns = [
     path('design/<int:id>/choice/', formviews.choiceindex, name='choice_index'),
     path('design/<int:qid>/question/<int:cid>/mychoice/', formviews.submit_choiceindex, name='submit_choiceindex'),
 
-    path('design/test', formviews.seePost, name="testing"),
+    # moved testing to new app: postform
+    # path('design/test', formviews.seePost, name="testing"),
+
 ]
 
 #Namespacing URL Names

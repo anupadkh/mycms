@@ -31,25 +31,44 @@ def mainforms(request,form_id, member, mark, marker):
         # var = var.append('mark' + str(i))
     no_of_markings = the_form.markers
     return render(request, 'base_forms/displayform.html',{
-        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings
+        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings,
+
     })
 
 @login_required(login_url='users:login')
 def all_my_forms(request):
     allforms = formValue.objects.all()
-    return render(request,'base_forms/allforms.html',{'allforms':allforms, 'member':0, 'mark':0, 'marker':0 })
+
+    formtitle = 'सम्पुर्ण फारमहरु'
+    formdescription = 'यस लिस्टमा तपाइँका सबै फारमहरू उपलब्ध छन्'
+    return render(request,'base_forms/allforms.html',{
+        'allforms':allforms, 'member':0, 'mark':0, 'marker':0 ,
+        'formtitle':formtitle, 'formdescription':formdescription,
+    })
 
 @login_required(login_url='users:login')
 def all_member_forms(request,member,memtype):
     allforms = formValue.objects.filter(formType=memtype)
-    return render(request,'base_forms/allforms.html',{'allforms':allforms, 'member':member, 'mark':1, 'marker':request.user.id })
+
+    formtitle = 'फारमहरु - परिवार, घर र व्यक्ति सम्बन्धित'
+    formtype = {1:'घरसँग सम्बन्धित', 2:'परिवार सम्बन्धित', 3: 'व्यक्ति सम्बन्धित'}
+    formdescription = formtype[memtype]
+    return render(request,'base_forms/allforms.html',{
+        'allforms':allforms, 'member':member, 'mark':1, 'marker':request.user.id,
+        'formtitle':formtitle, 'formdescription':formdescription,
+    })
 
 
 login_required(login_url='users:login')
 def index(request):
     myforms = formValue.objects.all()
     newLink = '/forms/design/'+'0/main/'
-    return render(request,'base_forms/list.html',{'new': newLink, 'list':myforms, 'form_type':'form'})
+    formtitle = 'सम्पुर्ण फारमहरु'
+    formdescription = 'यस लिस्टमा तपाइँका सबै फारमहरू उपलब्ध छन्'
+    return render(request,'base_forms/list.html',{
+        'new': newLink, 'list':myforms, 'form_type':'form',
+        'formtitle':formtitle, 'formdescription':formdescription,
+    })
 
 login_required(login_url='users:login')
 def formindex(request,id):
@@ -159,11 +178,3 @@ def submit_choiceindex(request,cid,qid):
 def designform(request,form_id=0):
     if form_id==0:
         return render(request, 'base_forms/base.html')
-
-def seePost(request):
-    from pprint import pprint
-    pprint(globals())
-    # pprint(locals())
-
-    if request.POST:
-        return render(request, 'base_forms/mytemplate.html',{})

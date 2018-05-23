@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block form-body %}
-
+<h1> <a href="{% url 'formentry:relation' mooli=head.id child=head.id entry=0 %}" class="btn btn-primary">{{head}}</a> </h1>
 {% for member in members %}
 <p> <a href="{% url 'formentry:relation' mooli=member.family.id child=member.person2.id  entry=0 %}" class="btn btn-danger">{{member.person2.full_name}}</a></p>
 {% endfor %}

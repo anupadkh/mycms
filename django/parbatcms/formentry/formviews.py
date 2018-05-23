@@ -35,33 +35,7 @@ def mainforms(request,form_id, member, mark, marker):
 
     })
 
-def printforms(request,form_id, member, mark, marker):
-    the_form = formValue.objects.get(id=form_id)
-    tables = headings.objects.filter(formID=the_form)
-    formquestions = []
-    # Building an array of fields
-    for table in tables:
-        table_questions = (questions.objects.filter(tableID = table))
-        table_questions_list = []
-        for one_question in table_questions:
-            queschoices = QuestionChoice.objects.filter(questionID = one_question)
-            quesAndchoice = dict(zip(
-                ['question', 'choice'],
-                [one_question, queschoices]
-            ))
-            table_questions_list.append(quesAndchoice)
-        formquestions.append(dict(zip(
-            ['table', 'table_questions'],
-            [table, table_questions_list]
-        )))
-    # var = []
-    # for i in range (1, the_form.markers + 1):
-        # var = var.append('mark' + str(i))
-    no_of_markings = the_form.markers
-    return render(request, 'base_forms/print_form.html',{
-        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings,
 
-    })
 
 @login_required(login_url='users:login')
 def all_my_forms(request):
@@ -206,3 +180,97 @@ def submit_choiceindex(request,cid,qid):
 def designform(request,form_id=0):
     if form_id==0:
         return render(request, 'base_forms/base.html')
+
+
+def deleteforms(request,form_id, member, mark, marker):
+    the_form = formValue.objects.get(id=form_id)
+    tables = headings.objects.filter(formID=the_form)
+    formquestions = []
+    request.session['delurl'] = request.path
+    # Building an array of fields
+    for table in tables:
+        table_questions = (questions.objects.filter(tableID = table))
+        table_questions_list = []
+        for one_question in table_questions:
+            queschoices = QuestionChoice.objects.filter(questionID = one_question)
+            quesAndchoice = dict(zip(
+                ['question', 'choice'],
+                [one_question, queschoices]
+            ))
+            table_questions_list.append(quesAndchoice)
+        formquestions.append(dict(zip(
+            ['table', 'table_questions'],
+            [table, table_questions_list]
+        )))
+    # var = []
+    # for i in range (1, the_form.markers + 1):
+        # var = var.append('mark' + str(i))
+    no_of_markings = the_form.markers
+    return render(request, 'base_forms/deleteform.html',{
+        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings,
+
+    })
+
+def delete_my_forms(request):
+    allforms = formValue.objects.all()
+
+    formtitle = 'सम्पुर्ण फारमहरु'
+    formdescription = 'यस लिस्टमा तपाइँका सबै फारमहरू उपलब्ध छन्'
+    return render(request,'base_forms/listdeleteforms.html',{
+        'allforms':allforms, 'member':0, 'mark':0, 'marker':0 ,
+        'formtitle':formtitle, 'formdescription':formdescription,
+    })
+
+def printforms(request,form_id, member, mark, marker):
+    the_form = formValue.objects.get(id=form_id)
+    tables = headings.objects.filter(formID=the_form)
+    formquestions = []
+    request.session['delurl'] = request.path
+    # Building an array of fields
+    for table in tables:
+        table_questions = (questions.objects.filter(tableID = table))
+        table_questions_list = []
+        for one_question in table_questions:
+            queschoices = QuestionChoice.objects.filter(questionID = one_question)
+            quesAndchoice = dict(zip(
+                ['question', 'choice'],
+                [one_question, queschoices]
+            ))
+            table_questions_list.append(quesAndchoice)
+        formquestions.append(dict(zip(
+            ['table', 'table_questions'],
+            [table, table_questions_list]
+        )))
+    # var = []
+    # for i in range (1, the_form.markers + 1):
+        # var = var.append('mark' + str(i))
+    no_of_markings = the_form.markers
+    return render(request, 'base_forms/print_form.html',{
+        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings,
+
+    })
+
+def print_my_forms(request):
+    allforms = formValue.objects.all()
+
+    formtitle = 'सम्पुर्ण फारमहरु'
+    formdescription = 'यस लिस्टमा तपाइँका सबै फारमहरू उपलब्ध छन्'
+    return render(request,'base_forms/listprintforms.html',{
+        'allforms':allforms, 'member':0, 'mark':0, 'marker':0 ,
+        'formtitle':formtitle, 'formdescription':formdescription,
+    })
+
+def deleteEntry(request, id, del_type):
+    link = request.session['delurl']
+    if del_type == 1:
+        a = formValue.objects.get(pk=id)
+        a.delete()
+    elif del_type == 2:
+        a = headings.objects.get(pk=id)
+        a.delete()
+    elif del_type == 3:
+        a = questions.objects.get(pk=id)
+        a.delete()
+    else:
+        a = 2
+    return redirect(link)

@@ -59,6 +59,7 @@ def makePost(request):
         marks=[]
         for a in markers:
             marks.append(request.POST.getlist(a))
+            pprint(request.POST.getlist(a))
         qna = list(zip(myquestions,answers))
         pprint(qna)
         pprint(marks)
@@ -77,8 +78,8 @@ def makePost(request):
                     # pprint(mymarkform)
                     if markform.is_valid():
                         markform.save()
-                        
-        return redirect('formentry:index')
+
+        return redirect(request.session['myurl'])
     return redirect('formentry:people')
 
 

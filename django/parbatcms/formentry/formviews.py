@@ -271,6 +271,7 @@ def deleteEntry(request, id, del_type):
     elif del_type == 3:
         a = questions.objects.get(pk=id)
         a.delete()
-    else:
-        a = 2
+    elif del_type == 4:
+        a = QuestionChoice.objects.get(pk=id)
+        a.delete()
     return redirect(link)

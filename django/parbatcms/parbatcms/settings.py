@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -25,7 +26,7 @@ SECRET_KEY = '=8rpf-f6-%o(v%*e==#ay(@dbqelbll4%=skd$3t^+@e%@3l$2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','103.69.124.248']
 
 
 # Application definition
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = [
     # 'jet.dashboard',
     # 'jet',
+    'postform.apps.PostformConfig',
     'widget_tweaks',
     'polls.apps.PollsConfig',
     'personal.apps.PersonalConfig',
@@ -83,13 +85,18 @@ WSGI_APPLICATION = 'parbatcms.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+	'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }	
+   , 'default1': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'parbatcms',
         'USER': 'root',
-        'PASSWORD': 'adhikari123',
+        'PASSWORD': 'Adhik@r!',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
+	'CHARSET':'utf8',
     }
 }
 

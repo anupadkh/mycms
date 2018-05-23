@@ -1,0 +1,38 @@
+
+  <h4 class="card-title">{{form.formName}}</h4>
+  <p class="card-category">जम्मा प्रश्नकर्ता सङ्ख्या =‍ {{form.markers}}</p>
+
+
+
+
+
+{% for tables in formquestions %}
+<table>
+  <p><strong>{{tables.table.tableName}}</strong></p>
+  {% if tables.table_questions %}{% else %}
+  Sorry, No questions are added for this table
+  {% endif %}
+  {% for one_question in tables.table_questions %}
+    <tr>
+      <td style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label"><p style="color:red;">{{one_question.question}} {% if mark >= 1 %}</p><p> अङ्क भार: {{one_question.question.marks}} {% endif %}</p></td>
+      <td>
+          {% if one_question.question.answerType == 'sc' %}
+
+            {% for choices in one_question.choice %}
+              {{choices}},
+            {% endfor %}
+
+          {% elif one_question.question.answerType == 'yn'  %}
+          छ (हो),छैन (होइन)
+
+          {% else %}
+            लेख्नुपर्ने
+          {% endif %}
+      </td>
+    </tr>
+
+
+
+  {% endfor %}
+</table>
+{% endfor %}

@@ -239,3 +239,12 @@ def relation_entry(request,mooli=0,child=0, entry=0):
         relation_saved = form.save()
         return redirect('formentry:relation', mooli=mooli,  child=child, entry=2)
     return render(request, 'entry_forms/relation.html',{'form':form, 'mooli':mooli, 'child':child, 'entry':2})
+
+@login_required(login_url='users:login')
+def all_my_houses(request):
+    request.session['myurl'] = request.path
+
+    Houses = House.objects.all()
+    # request.session['myurl'] = request.path
+    ListofFamilies = Family.objects.filter(myhouse=GeoObject)
+    return render(request, 'entry_forms/family_list.html',{'families':ListofFamilies, 'geo':geo, 'request':request})

@@ -35,6 +35,34 @@ def mainforms(request,form_id, member, mark, marker):
 
     })
 
+def printforms(request,form_id, member, mark, marker):
+    the_form = formValue.objects.get(id=form_id)
+    tables = headings.objects.filter(formID=the_form)
+    formquestions = []
+    # Building an array of fields
+    for table in tables:
+        table_questions = (questions.objects.filter(tableID = table))
+        table_questions_list = []
+        for one_question in table_questions:
+            queschoices = QuestionChoice.objects.filter(questionID = one_question)
+            quesAndchoice = dict(zip(
+                ['question', 'choice'],
+                [one_question, queschoices]
+            ))
+            table_questions_list.append(quesAndchoice)
+        formquestions.append(dict(zip(
+            ['table', 'table_questions'],
+            [table, table_questions_list]
+        )))
+    # var = []
+    # for i in range (1, the_form.markers + 1):
+        # var = var.append('mark' + str(i))
+    no_of_markings = the_form.markers
+    return render(request, 'base_forms/print_form.html',{
+        'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings,
+
+    })
+
 @login_required(login_url='users:login')
 def all_my_forms(request):
     allforms = formValue.objects.all()

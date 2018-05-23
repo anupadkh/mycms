@@ -31,6 +31,7 @@ urlpatterns = [
     path('family/<int:family_id>/members', views.member_list, name="memberlist"),
 
     path('myform/<int:form_id>/member/<int:member>/marktype/<int:mark>/<int:marker>/', formviews.mainforms, name='form_basic'),
+    path('printform/<int:form_id>/member/<int:member>/marktype/<int:mark>/<int:marker>/', formviews.printforms, name='printforms'),
     path('myform/all_forms', formviews.all_my_forms, name='all_my_forms'),
     path('userforms/<int:member>/type/<int:memtype>', formviews.all_member_forms, name='memberforms'),
 
@@ -42,6 +43,8 @@ urlpatterns = [
     path('design/<int:tid>/table/<int:qid>/myquestion/', formviews.submit_questionindex, name='submit_questionindex'),
     path('design/<int:id>/choice/', formviews.choiceindex, name='choice_index'),
     path('design/<int:qid>/question/<int:cid>/mychoice/', formviews.submit_choiceindex, name='submit_choiceindex'),
+
+    path('houses/', views.all_my_houses, name='all_my_houses'),
 
     # moved testing to new app: postform
     # path('design/test', formviews.seePost, name="testing"),

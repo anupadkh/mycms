@@ -8,7 +8,7 @@
 
 {% for tables in formquestions %}
 <table>
-  <p><strong>{{tables.table.tableName}}</strong></p>
+  <td colspan="2"><strong>{{tables.table.tableName}}</strong></td>
   {% if tables.table_questions %}{% else %}
   Sorry, No questions are added for this table
   {% endif %}

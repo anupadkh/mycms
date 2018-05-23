@@ -59,7 +59,7 @@
                     <a class="btn btn-primary" href="{% url 'formentry:contact_details' id=personid contact=1 %}" role="button">Add Primary Contact Details</a>
                     <a class="btn btn-primary" href="{% url 'formentry:contact_details' id=personid contact=1 %}" role="button">Add Secondary Contact Details</a>
                     <a class="btn btn-primary" href="{% url 'formentry:social_details' id=personid media=1 %}" role="button">Add Facebook Details</a> -->
-                    <a class="btn btn-primary" href="{% url 'formentry:memberforms' member=personid memtype=3 %}" role="button">Add More Details</a>
+                    <a class="btn btn-primary" href="{% url 'formentry:memberforms' member=personid memtype=3 %}?mainurl={{ request.path|urlencode }}" role="button">Add More Details</a>
 
                     {% endif %}
                   </div>

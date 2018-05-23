@@ -19,6 +19,8 @@ def index(request):
 
 @login_required(login_url='users:login')
 def entry(request, person=0,house=None):
+    request.session['myurl'] = request.path
+
     if person!=0:
         my_person = Personal.objects.get(pk = int(person))
         form = PersonalForm(request.POST or None, instance=my_person)
@@ -96,6 +98,7 @@ def hobby_entry(request,id):
 
 @login_required(login_url='users:login')
 def all_people(request, status=0):
+    request.session['myurl'] = request.path
     a = Personal.objects.all()
     if status==1:
         status_name = "Saved"
@@ -106,6 +109,7 @@ def all_people(request, status=0):
 
 @login_required(login_url='users:login')
 def geo_entry(request, id=0):
+    request.session['myurl'] = request.path
     if id !=0 :
         my_geo = GeoCode.objects.get(pk=int(id))
         form = GeoForm(request.POST or None, instance=my_geo)
@@ -118,6 +122,7 @@ def geo_entry(request, id=0):
 
 @login_required(login_url='users:login')
 def house_entry(request,geo=0, pid=0 ):
+    request.session['myurl'] = request.path
     coordinate = GeoCode(pk=geo)
     try:
         my_house = House.objects.get(coordinates=coordinate)
@@ -138,6 +143,7 @@ def house_entry(request,geo=0, pid=0 ):
 def family_entry(request, house=0, fid=0, geo=0, pid=0):
     #fid = family head
     #pid = family person... if fid doesn't exist pid becomes main head
+    request.session['myurl'] = request.path
     if fid==0:
         return redirect('formentry:house_head', coordinates=geo, pid=0)
     try:
@@ -166,6 +172,8 @@ def family_entry(request, house=0, fid=0, geo=0, pid=0):
 
 @login_required(login_url='users:login')
 def house_head_entry(request,coordinates=0, pid=0):
+    request.session['myurl'] = request.path
+
     if pid != 0:
         my_person = Personal.objects.get(pk = int(pid))
         form = PersonalForm(request.POST or None, instance=my_person)
@@ -174,18 +182,26 @@ def house_head_entry(request,coordinates=0, pid=0):
     if form.is_valid():
         person_saved = form.save()
         return redirect('formentry:house_head', coordinates=coordinates, pid=person_saved.id)
+
+    # request.session['myurl'] = request.path
     return render(request, 'entry_forms/user_forms.html',{'form':form, 'user':request.user, 'personid':pid, 'geo':coordinates, 'form_next':'house'})
 
 @login_required(login_url='users:login')
 def family_list(request, geo):
+    request.session['myurl'] = request.path
+
     GeoObject = GeoCode.objects.get(pk=geo)
+    # request.session['myurl'] = request.path
     ListofFamilies = Family.objects.filter(myhouse=GeoObject)
     return render(request, 'entry_forms/family_list.html',{'families':ListofFamilies, 'geo':geo, 'request':request})
 
 
 @login_required(login_url='users:login')
 def member_list(request, family_id):
+    request.session['myurl'] = request.path
+
     my_family = Family.objects.get(pk=family_id)
+    request.session['myurl'] = request.path
     head = my_family.person_head
     try:
         ListofMembers = Relation.objects.filter(family=my_family)
@@ -196,6 +212,8 @@ def member_list(request, family_id):
 
 @login_required(login_url='users:login')
 def relation_entry(request,mooli=0,child=0, entry=0):
+    request.session['myurl'] = request.path
+
     try:
         mool_family = Family.objects.get(id=mooli)
         family_child = Personal.objects.get(id=child)

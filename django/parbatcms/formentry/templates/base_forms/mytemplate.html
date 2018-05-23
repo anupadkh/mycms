@@ -16,9 +16,9 @@
   </div>
   <div class="col-md-4 form-group row">
     {% for i,j in markers %}
-      <label style="text-align:right; font-size:12px; text-transform:none;" class="col-xs-6 col-form-label">{{j}}</label>
+      <label style="text-align:right; font-size:12px; text-transform:none;" class="col-xs-6 col-form-label">{{i}}</label>
       <div class="col-xs-6">
-        <input name="{{i}}[]" type="number" size="4" style="width:80px"/>
+        <input name="{{j}}[]" type="number" size="4" style="width:80px"/>
       </div>
     {% endfor %}
   </div>

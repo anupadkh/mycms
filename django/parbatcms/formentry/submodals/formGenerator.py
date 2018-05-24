@@ -15,6 +15,7 @@ class formValue(models.Model):
 class headings(models.Model):
     formID = models.ForeignKey(formValue, on_delete=models.CASCADE)
     tableName = models.TextField('Table Name (फारमभित्रको टेबलको हेडिङ्ग)')
+    weight = models.IntegerField('Order', default=1)
     def __str__(self):
         return self.tableName;
 
@@ -43,7 +44,8 @@ class questions(models.Model):
     unanswering = models.BooleanField('उत्तर दिन पर्ने/नपर्ने', default=0,
         choices=mandatory
     )
-    description = models.TextField('Description(विवरण)', null=True, default='')
+    description = models.TextField('Description(विवरण)',blank=True, null=True, default='')
+    weight = models.IntegerField('Order', default=1)
     def __str__(self):
         return self.question;
     def name(self):

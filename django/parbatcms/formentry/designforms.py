@@ -15,6 +15,9 @@ class tableForm(ModelForm):
     class Meta:
         model=headings
         fields = '__all__'
+        widgets = {
+            'weight' : HiddenInput(),
+        }
 
 class questionForm(ModelForm):
     class Meta:
@@ -22,6 +25,7 @@ class questionForm(ModelForm):
         fields = '__all__'
         widgets = {
             'sub_question' : HiddenInput(),
+            'weight': HiddenInput(),
         }
 
 class choiceForm(ModelForm):

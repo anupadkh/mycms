@@ -5,27 +5,61 @@ from django.contrib.auth.decorators import login_required
 from .designforms import *
 from django.http import Http404
 from formentry.submodals.formGenerator import *
+from postform.models import *
 
 @login_required(login_url='users:login')
 def mainforms(request,form_id, member, mark, marker):
     the_form = formValue.objects.get(id=form_id)
-    tables = headings.objects.filter(formID=the_form)
+    tables = headings.objects.filter(formID=the_form).order_by('weight')
     formquestions = []
+    try:
+        filled = formEntries.objects.filter(form=the_form, member=member).values()
+        # filledids = [d['formfield'] for d in filled] Not Necessary
+    except formEntries.DoesNotExist:
+        filled = []
+
     # Building an array of fields
     for table in tables:
-        table_questions = (questions.objects.filter(tableID = table))
+        table_questions = (questions.objects.filter(tableID = table)).order_by('weight')
         table_questions_list = []
+        values_list = []
+        entryids = []
+
         for one_question in table_questions:
-            queschoices = QuestionChoice.objects.filter(questionID = one_question)
+            #find the entry item
+            mysearch = next((item for item in filled if item["formfield_id"] == one_question.id), {'id': '', 'formfield_id': '', 'answers': '', 'member': '', 'form_id': ''})
+
+            # Find index for the found id from filled array
+            # Find the answers from the indexed array to load to values_list
+            ###
+            # people = [
+            # {'name': "Tom", 'age': 10},
+            # {'name': "Mark", 'age': 5},
+            # {'name': "Pam", 'age': 7}
+            # ]
+            #
+            # filter(lambda person: person['name'] == 'Pam', people)
+            # result (returned as a list in Python 2):
+            #
+            # [{'age': 7, 'name': 'Pam'}]
+            ###
+
+
+            queschoices = QuestionChoice.objects.filter (questionID = one_question).order_by('weight')
             quesAndchoice = dict(zip(
-                ['question', 'choice'],
-                [one_question, queschoices]
+                ['question', 'choice', 'answer', 'entryid'],
+                [one_question, queschoices, mysearch['answers'], mysearch['id']]
             ))
             table_questions_list.append(quesAndchoice)
         formquestions.append(dict(zip(
             ['table', 'table_questions'],
             [table, table_questions_list]
         )))
+    # else:
+    #     # Things need to get messy hereself.
+    #     # Blank fields are absent
+    #     # Only the filled up forms are available in filled
+    #     a = 2
     # var = []
     # for i in range (1, the_form.markers + 1):
         # var = var.append('mark' + str(i))
@@ -120,7 +154,7 @@ def submit_tableindex(request,tid,formid):
 login_required(login_url='users:login')
 def questionindex(request,id):
     try:
-        tables = questions.objects.filter(tableID=id)
+        tables = questions.objects.filter(tableID=id).order_by('weight')
     except questions.DoesNotExist:
         redirect(request,'formentry:submit_questionindex',qid=0, tid=id)
     newLink = '/forms/design/'+str(id)+'/table/0/myquestion'
@@ -151,7 +185,7 @@ login_required(login_url='users:login')
 def choiceindex(request,id):
     try:
         myquestion = questions.objects.get(id=id)
-        choices = QuestionChoice.objects.filter(questionID=id)
+        choices = QuestionChoice.objects.filter(questionID=id).order_by('weight')
     except QuestionChoice.DoesNotExist:
         redirect(request,'formentry:submit_choiceindex',cid=0, qid=id)
     newLink = '/forms/design/'+str(id)+'/question/0/mychoice'
@@ -271,6 +305,7 @@ def deleteEntry(request, id, del_type):
     elif del_type == 3:
         a = questions.objects.get(pk=id)
         a.delete()
-    else:
-        a = 2
+    elif del_type == 4:
+        a = QuestionChoice.objects.get(pk=id)
+        a.delete()
     return redirect(link)

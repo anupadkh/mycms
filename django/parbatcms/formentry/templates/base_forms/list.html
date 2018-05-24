@@ -5,21 +5,39 @@
   <p class="card-category">{{formdescription}}</p>
 {% endblock %}
 
+
+
 {% block form-body %}
-{% for member in list %}
-{% if form_type %}
-<p><a href="{% url 'formentry:submit_formindex' id=member.id %}" class="btn btn-primary">{{member}}</a></p>
-{% endif %}
-{% if tab_type %}
-<p><a href="{% url 'formentry:submit_tableindex' formid=formid tid=member.id %}" class="btn btn-primary">{{member}}</a></p>
-{% endif %}
-{% if ques_type %}
-<p><a href="{% url 'formentry:submit_questionindex' tid=tid qid=member.id %}" class="btn btn-primary">{{member}}</a></p>
-{% endif %}
-{% if choice_type %}
-<p><a href="{% url 'formentry:submit_choiceindex' qid=qid cid=member.id %}" class="btn btn-primary">{{member}}</a></p>
-{% endif %}
-{% endfor %}
+<div id="A">
+  {% for member in list %}
+  {% if form_type %}
+  <div><a href="{% url 'formentry:submit_formindex' id=member.id %}" class="btn btn-primary" >{{member}}</a></div>
+  {% endif %}
+  {% if tab_type %}
+  <div><a href="{% url 'formentry:submit_tableindex' formid=formid tid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member}}</a></div>
+  {% endif %}
+  {% if ques_type %}
+  <div><a href="{% url 'formentry:submit_questionindex' tid=tid qid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member}}</a></div>
+  {% endif %}
+  {% if choice_type %}
+  <div><a href="{% url 'formentry:submit_choiceindex' qid=qid cid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member}}</a></div>
+  {% endif %}
+  {% endfor %}
+</div>
+<script type="text/javascript">
+var el = document.getElementById('A')
+var mysortable =
+  Sortable.create(el, {
+  animation: 200,
+  group: {
+    name: "shared",
+    pull: "clone",
+    revertClone: true,
+  },
+  sort: true
+  });
+
+</script>
 {% endblock %}
 
 {% block form-footer %}

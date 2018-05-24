@@ -20,7 +20,7 @@
           {% if one_question.question.answerType == 'sc' %}
           <select class="form-control" name="question_value[]">
             {% for choices in one_question.choice %}
-              <option value="{{choices.id}}">{{choices}}</option>
+              <option value="{{choices.id}}"  selected="{% if choices.id == one_question.answer %}True{% endif %}">{{choices}}</option>
             {% endfor %}
           </select>
           {% elif one_question.question.answerType == 'yn'  %}
@@ -29,7 +29,7 @@
             <option value="0">छैन (होइन)</option>
           </select>
           {% else %}
-            <input type="text" class="form-control plaintext" {% if one_question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[]">
+            <input type="text" class="form-control plaintext" {% if one_question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[]" value="{{one_question.answer}}"/>
           {% endif %}
       </div>
       <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>

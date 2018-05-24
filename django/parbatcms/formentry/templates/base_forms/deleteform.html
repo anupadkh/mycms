@@ -11,17 +11,25 @@
 {% for tables in formquestions %}
   <p><strong>{{tables.table.tableName}}</strong></p>
 
-  <h3><a href="{% url 'formentry:submit_tableindex' tid=tables.table.id formid=tables.table.formID.id %}">Edit अद्यावद्यिक गर्नुहोस्</a></h3>
-  <h3><a href="{% url 'formentry:delete_entry' id=tables.table.id del_type=2 %}"> Delete हटाउनुहोस् </a></h3>
+  <h5><a href="{% url 'formentry:submit_tableindex' tid=tables.table.id formid=tables.table.formID.id %}">Edit अद्यावद्यिक गर्नुहोस्</a></h5>
+  <h5><a href="{% url 'formentry:delete_entry' id=tables.table.id del_type=2 %}"> Delete हटाउनुहोस् </a></h5>
   {% for one_question in tables.table_questions %}
     <div class="form-group row">
       <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label"><p style="color:red;">{{one_question.question}} {% if mark >= 1 %}</p><p> अङ्क भार: {{one_question.question.marks}} {% endif %}</p></label>
       <div class="col-md-6">
-          <h4><a href="{% url 'formentry:submit_questionindex' qid=one_question.question.id tid=tables.table.id %}">Edit अद्यावद्यिक गर्नुहोस्</a></h4>
-          <h4><a href="{% url 'formentry:delete_entry' id=one_question.question.id del_type=3 %}"> Delete हटाउनुहोस् </a></h4>
+          <h7><a href="{% url 'formentry:submit_questionindex' qid=one_question.question.id tid=tables.table.id %}">Edit अद्यावद्यिक गर्नुहोस्</a></h7>
+          <h7><a href="{% url 'formentry:delete_entry' id=one_question.question.id del_type=3 %}"> Delete हटाउनुहोस् </a></h7>
       </div>
-      <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
-      <input type="hidden" name="member" value = "{{member}}"/>
+      <div class="col-md-12">
+        {% if one_question.question.answerType == 'sc' %}
+          {% for choices in one_question.choice %}
+            <p><a href="{% url 'formentry:delete_entry' id=choices.id del_type=4 %}">{{choices}} हटाउनुहोस् ।</a></p>
+            <p><a href="{% url 'formentry:submit_choiceindex' cid=choices.id qid=one_question.question.id %}">{{choices}} Update/अद्यावद्यिक</a></p>
+          {% endfor %}
+        </select>
+        {% endif  %}
+      </div>
+
     </div>
 
 

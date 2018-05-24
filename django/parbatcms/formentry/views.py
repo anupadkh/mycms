@@ -246,5 +246,5 @@ def all_my_houses(request):
 
     Houses = House.objects.all()
     # request.session['myurl'] = request.path
-    ListofFamilies = Family.objects.filter(myhouse=GeoObject)
-    return render(request, 'entry_forms/family_list.html',{'families':ListofFamilies, 'geo':geo, 'request':request})
+    HouseList = House.objects.all()
+    return render(request, 'entry_forms/houselist.html',{'houses':HouseList, 'request':request})

@@ -1,0 +1,20 @@
+{% extends 'entry_forms/user_forms.html' %}
+
+{% block form-title %}
+  <h4 class="card-title">सबै घर</h4>
+  <p class="card-category">सबै घरका घरमुली</p>
+{% endblock %}
+
+{% block form-body %}
+{% for member in houses %}
+<p><a href="{% url 'formentry:house_entry' geo=member.coordinates.id pid=member.id %}" class="btn btn-primary">{{member.owner}}</a></p>
+{% endfor %}
+{% endblock %}
+
+{% block form-footer %}
+
+{% endblock %}
+
+{% block form-nav %}
+<a href="{% url 'formentry:geo' id=0 %}" role="button" class="btn btn-primary">नयाँ घर थप्नुहोस् </a>
+{% endblock %}

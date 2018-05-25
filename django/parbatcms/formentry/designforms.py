@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, DateTimeInput, HiddenInput
+from django.forms import ModelForm, HiddenInput, Textarea
 from formentry.submodals.formGenerator import *
 
 class mainForm(ModelForm):
@@ -16,7 +16,7 @@ class tableForm(ModelForm):
         model=headings
         fields = '__all__'
         widgets = {
-            'weight' : HiddenInput(),
+            'weight' : Textarea(attrs={'disabled':'True'}),
         }
 
 class questionForm(ModelForm):
@@ -25,7 +25,7 @@ class questionForm(ModelForm):
         fields = '__all__'
         widgets = {
             'sub_question' : HiddenInput(),
-            'weight': HiddenInput(),
+            'weight' : Textarea(attrs={'disabled':'True'}),
         }
 
 class choiceForm(ModelForm):
@@ -33,9 +33,5 @@ class choiceForm(ModelForm):
         model=QuestionChoice
         fields = '__all__'
         widgets ={
-            'weight': HiddenInput(),
+            'weight' : Textarea(attrs={'disabled':'True'}),
         }
-
-    def form_valid(self, form):
-        form.instance.creator = self.request.user.username
-        return super(PersonalForm, self).form_valid(form)

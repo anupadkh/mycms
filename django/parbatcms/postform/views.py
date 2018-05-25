@@ -9,7 +9,7 @@ from postform.models import *
 from postform.forms import *
 
 #debug mode
-from pprint import pprint
+# from pprint import pprint
 
 
 def seePost(request):
@@ -21,10 +21,10 @@ def seePost(request):
         answers = []
         object_questions = questions.objects.filter(pk__in=myquestions)
         for onequestion in object_questions:
-            pprint(onequestion.id)
-            pprint(" is Question and Answer is ")
+            # pprint(onequestion.id)
+            # pprint(" is Question and Answer is ")
             ans = (request.POST.get('question_value[' + str(onequestion.pk)+']'))
-            pprint(ans)
+            # pprint(ans)
             answers.append(ans)
         form = formValue.objects.get(pk = request.POST.get('formid'))
         member = request.POST.get('member')
@@ -38,7 +38,7 @@ def seePost(request):
         # choices = QuestionChoice.objects.filter(questionID__in=myquestion, )
         # pprint (choices)
         postquestions = list(zip(object_questions,answers))
-        pprint(str(list(zip(myquestions, answers))) + " Search Questions " + str(len(answers)) + " Answers " +str((postquestions)) + "Post questions")
+        # pprint(str(list(zip(myquestions, answers))) + " Search Questions " + str(len(answers)) + " Answers " +str((postquestions)) + "Post questions")
         choices = []
         for ques,ans in postquestions:
             if ques.answerType == 'sc':
@@ -73,10 +73,10 @@ def makePost(request):
         marks=[]
         for a in markers:
             marks.append(request.POST.getlist(a))
-            pprint(request.POST.getlist(a))
+            # pprint(request.POST.getlist(a))
         qna = list(zip(myquestions,answers))
-        pprint(qna)
-        pprint(marks)
+        # pprint(qna)
+        # pprint(marks)
         for idx,(q,a) in enumerate(qna):
             data = {'formfield' : q, 'answers':a, 'form' : formid, 'member':member}
             # pprint(myinstance)

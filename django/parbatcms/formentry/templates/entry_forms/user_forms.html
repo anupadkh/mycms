@@ -50,15 +50,6 @@
               <div class="card-footer ">{% block form-footer %}
                   <div class="legend">
                     {% if personid %}
-                    <!-- <a class="btn btn-primary" href="{% url 'formentry:address_entry' id=personid pt=1 %}" role="button">Add Permanent Address Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:address_entry' id=personid pt=2 %}" role="button">Add Temporary Address Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:card_details' id=personid card=1 %}" role="button">Add Nagrikta Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:card_details' id=personid card=2 %}" role="button">Add License Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:card_details' id=personid card=3 %}" role="button">Add Passport Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:card_details' id=personid card=4 %}" role="button">Add Student Card Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:contact_details' id=personid contact=1 %}" role="button">Add Primary Contact Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:contact_details' id=personid contact=1 %}" role="button">Add Secondary Contact Details</a>
-                    <a class="btn btn-primary" href="{% url 'formentry:social_details' id=personid media=1 %}" role="button">Add Facebook Details</a> -->
                     <a class="btn btn-primary" href="{% url 'formentry:memberforms' member=personid memtype=3 %}" role="button">Add More Details</a>
 
                     {% endif %}
@@ -81,7 +72,7 @@
                   {% if flag %}
                   {% if  personid %}
                     <a class = "btn btn-primary" href ="{% url 'formentry:relation' mooli=mooli child=child entry=2 %}" role="button">Add Relation</a>
-                    <a class = "btn btn-primary" href ="{% url 'formentry:memberlist' family_id=mooli %}" role="button">परिवारका अन्य सदस्यमा जानुहोस् ।</a>
+                    <a class = "btn btn-primary" href ="{% url 'formentry:memberlist' family_id=mooli %}" role="button">परिवारमा जानुहोस् ।</a>
                   {% endif %}
                   {% endif %}
                   {% endblock %}

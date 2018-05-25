@@ -7,7 +7,7 @@
 
 {% block form-body %}
 {% for member in houses %}
-<p><a href="{% url 'formentry:house_entry' geo=member.coordinates.id pid=member.id %}" class="btn btn-primary">{{member.owner}}</a></p>
+<p><a href="{% url 'formentry:family_list' geo=member.coordinates.id %}" class="btn btn-primary">{{member.owner}}</a></p>
 {% endfor %}
 {% endblock %}
 

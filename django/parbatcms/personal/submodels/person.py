@@ -18,7 +18,7 @@ class Personal(models.Model):
 
     pub_date = models.DateTimeField('Date Published')
     gened = models.CharField('Generated Id', max_length=60, default="23", blank=True, null=True) #Generated IDS
-    creator = models.IntegerField(default=0)
+    creator = models.CharField("Creator", max_length=40,default='', blank=True, null = True)
     male_female = (
     (1,'पुरुष । male'), (2,'महिला | Female'), (3, 'तेस्रो लिङ्गि'), (4, 'अन्य'),
     )
@@ -30,8 +30,6 @@ class Personal(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
-    # class Meta:
-        # appname = "Person"
 
     def full_name(self):
         if self.mname:

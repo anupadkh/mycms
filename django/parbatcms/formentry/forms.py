@@ -1,10 +1,10 @@
-from django.forms import ModelForm, DateTimeInput, HiddenInput
+from django.forms import ModelForm, DateTimeInput, HiddenInput, Textarea
 from personal.models import *
 
 class PersonalForm(ModelForm):
-    def form_valid(self, form):
-        form.instance.creator = self.request.user.username
-        return super(PersonalForm, self).form_valid(form)
+    def __init__(self, *args, **kwargs):
+       self.request = kwargs.pop('request', None)
+       return super(PersonalForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = Personal
@@ -19,40 +19,9 @@ class PersonalForm(ModelForm):
         }
         widgets = {
             'pub_date': DateTimeInput(attrs={'class': 'datetime-input'}),
-            'creator' : HiddenInput()
+            'creator' : Textarea(attrs={'disabled':'True'}),
         }
 
-
-class AddressForm(ModelForm):
-    class Meta:
-        model = Address
-        fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        person = kwargs.pop('person','')
-        super(AddressForm, self).__init__(*args, **kwargs)
-        self.fields['person'] = person
-
-
-class NagriktaForm(ModelForm):
-    class Meta:
-        model = Nagrikta
-        fields = '__all__'
-
-class ContactForm(ModelForm):
-    class Meta:
-        model = Contact
-        fields = '__all__'
-
-class SocialForm(ModelForm):
-    class Meta:
-        model = Social
-        fields = '__all__'
-
-class HobbyForm(ModelForm):
-    class Meta:
-        model = Hobby
-        fields = '__all__'
 
 class HouseForm(ModelForm):
     class Meta:

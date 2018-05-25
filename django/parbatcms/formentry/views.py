@@ -32,71 +32,6 @@ def entry(request, person=0,house=None):
     return render(request, 'design/forms.html',{'form':form, 'user':request.user, 'personid':person, 'houseid':house})
 
 @login_required(login_url='users:login')
-def address_entry(request,id,pt):
-    try:
-        my_person = Address.objects.get(person=id, addr_type=pt)
-        form = AddressForm(request.POST or None, instance=my_person)
-    except Address.DoesNotExist:
-        form = AddressForm(request.POST or None)
-
-    if form.is_valid():
-        person_saved = form.save()
-        return redirect('formentry:personid', person=id)
-    return render(request, 'entry_forms/user_details.html',{'form':form, 'addressType':pt, 'person': id})
-
-@login_required(login_url='users:login')
-def card_entry(request,id,card):
-    try:
-        my_card = Nagrikta.objects.get(person=id, card_type=card)
-        form = NagriktaForm(request.POST or None, instance=my_card)
-    except Nagrikta.DoesNotExist:
-        form = NagriktaForm(request.POST or None)
-
-    if form.is_valid():
-        card_saved =form.save()
-        return redirect('formentry:personid', person=id)
-    return render(request, 'entry_forms/card.html',{'form':form, 'cardType':card, 'person':id})
-
-@login_required(login_url='users:login')
-def contact_entry(request,id,contact):
-    try:
-        my_contact = Contact.objects.get(person=id, contact_type=contact)
-        form = ContactForm(request.POST or None, instance=my_contact)
-    except Contact.DoesNotExist:
-        form = ContactForm(request.POST or None)
-
-    if form.is_valid():
-        contact_saved =form.save()
-        return redirect('formentry:personid', person=id)
-    return render(request, 'entry_forms/contact.html',{'form':form, 'contactType':contact, 'person':id})
-
-@login_required(login_url='users:login')
-def social_entry(request,id,media):
-    try:
-        my_Media = Media.objects.get(person=id, Media_type=media)
-        form = MediaForm(request.POST or None, instance=my_Media)
-    except Media.DoesNotExist:
-        form = MediaForm(request.POST or None)
-
-    if form.is_valid():
-        Media_saved =form.save()
-        return redirect('formentry:personid', person=id)
-    return render(request, 'entry_forms/media.html',{'form':form, 'MediaType':media, 'person':id})
-
-@login_required(login_url='users:login')
-def hobby_entry(request,id):
-    try:
-        my_Hobby = Hobby.objects.get(person=id)
-        form = HobbyForm(request.POST or None, instance=my_Hobby)
-    except Hobby.DoesNotExist:
-        form = HobbyForm(request.POST or None)
-
-    if form.is_valid():
-        Hobby_saved =form.save()
-        return redirect('formentry:personid', person=id)
-    return render(request, 'entry_forms/hobby.html',{'form':form, 'person':id})
-
-@login_required(login_url='users:login')
 def all_people(request, status=0):
     request.session['myurl'] = request.path
     a = Personal.objects.all()
@@ -178,10 +113,10 @@ def house_head_entry(request,coordinates=0, pid=0):
         my_person = Personal.objects.get(pk = int(pid))
         form = PersonalForm(request.POST or None, instance=my_person)
     else:
-        form = PersonalForm(request.POST or None)
+        form = PersonalForm(request.POST or None, request=request)
     if form.is_valid():
         person_saved = form.save()
-        return redirect('formentry:house_head', coordinates=coordinates, pid=person_saved.id)
+        return redirect('formentry:family_details', house=0, fid=person_saved.id, geo=coordinates, pid =0)
 
     # request.session['myurl'] = request.path
     return render(request, 'entry_forms/user_forms.html',{'form':form, 'user':request.user, 'personid':pid, 'geo':coordinates, 'form_next':'house'})
@@ -221,7 +156,7 @@ def relation_entry(request,mooli=0,child=0, entry=0):
             form = PersonalForm(request.POST or None, instance=family_child)
             return render(request, 'entry_forms/user_forms.html',{'form':form, 'user':request.user, 'child':child, 'mooli':mooli, 'flag':'relation', 'personid':child })
     except Personal.DoesNotExist:
-        form = PersonalForm(request.POST or None)
+        form = PersonalForm(request.POST or None, request=request)
         if form.is_valid():
             # New Entry of PersonalForm
             # form = PersonForm(request.POST or None)
@@ -237,7 +172,7 @@ def relation_entry(request,mooli=0,child=0, entry=0):
         form = RelationForm(request.POST or None, instance=my_relation)
     if form.is_valid():
         relation_saved = form.save()
-        return redirect('formentry:relation', mooli=mooli,  child=child, entry=2)
+        return redirect('formentry:relation', mooli=mooli,  child=child, entry=0)
     return render(request, 'entry_forms/relation.html',{'form':form, 'mooli':mooli, 'child':child, 'entry':2})
 
 @login_required(login_url='users:login')

@@ -18,22 +18,23 @@
       <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label"><p style="color:red;">{{one_question.question}} {% if mark >= 1 %}</p><p> अङ्क भार: {{one_question.question.marks}} {% endif %}</p></label>
       <div class="col-md-6">
           {% if one_question.question.answerType == 'sc' %}
-          <select class="form-control" name="question_value[]">
+          <select class="form-control" name="question_value[{{one_question.question.id}}]">
             {% for choices in one_question.choice %}
-              <option value="{{choices.id}}"  selected="{% if choices.id == one_question.answer %}True{% endif %}">{{choices}}</option>
+              <option value="{{choices.id}}"  {% if choices.id == one_question.answer %} selected {% endif %}>{{choices}}</option>
             {% endfor %}
           </select>
           {% elif one_question.question.answerType == 'yn'  %}
-          <select class="form-control" name="question_value[]">
+          <select class="form-control" name="question_value[{{one_question.question.id}}]">
             <option value="1">छ (हो)</option>
             <option value="0">छैन (होइन)</option>
           </select>
           {% else %}
-            <input type="text" class="form-control plaintext" {% if one_question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[]" value="{{one_question.answer}}"/>
+            <input type="text" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}"/>
           {% endif %}
+          <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
       </div>
-      <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
-      <input type="hidden" name="member" value = "{{member}}"/>
+
+
     </div>
 
 
@@ -41,6 +42,8 @@
 
 {% endfor %}
 {% csrf_token %}
+<input type="hidden" name="member" value = "{{member}}"/>
+
 <input type="hidden" name="formid" value="{{form.id}}"/>
 <input type="submit" name="Submit" value="Submit" class="btn btn-danger" {% if member < 1 %}disabled{% endif %} />
 </form>

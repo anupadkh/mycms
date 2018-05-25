@@ -17,11 +17,20 @@ def seePost(request):
     # pprint(locals())
     if request.POST:
         myquestions = request.POST.getlist('questionID[]')
-        answers = request.POST.getlist('question_value[]')
+        # answers = request.POST.getlist('question_value[]')
+        answers = []
+        object_questions = questions.objects.filter(pk__in=myquestions)
+        for onequestion in object_questions:
+            pprint(onequestion.id)
+            pprint(" is Question and Answer is ")
+            ans = (request.POST.get('question_value[' + str(onequestion.pk)+']'))
+            pprint(ans)
+            answers.append(ans)
         form = formValue.objects.get(pk = request.POST.get('formid'))
         member = request.POST.get('member')
 
-        object_questions = questions.objects.filter(pk__in=myquestions)
+
+
 
         formmarkers = [{"प्रश्नकर्ता नं "+str(i),"mark"+str(i)} for i in range(form.markers)]
 
@@ -29,10 +38,15 @@ def seePost(request):
         # choices = QuestionChoice.objects.filter(questionID__in=myquestion, )
         # pprint (choices)
         postquestions = list(zip(object_questions,answers))
+        pprint(str(list(zip(myquestions, answers))) + " Search Questions " + str(len(answers)) + " Answers " +str((postquestions)) + "Post questions")
         choices = []
         for ques,ans in postquestions:
             if ques.answerType == 'sc':
-                choice = QuestionChoice.objects.get(pk=ans)
+                try:
+                    choice = QuestionChoice.objects.get(pk=ans)
+                except:
+                    choice = str(ans) + "Error is here "
+
             elif ques.answerType == 'yn':
                 choice = {'1':'Yes, हो','2':'No, होइन'}.get(ans)
             else:

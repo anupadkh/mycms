@@ -10,7 +10,7 @@ from postform.models import *
 @login_required(login_url='users:login')
 def mainforms(request,form_id, member, mark, marker):
     the_form = formValue.objects.get(id=form_id)
-    tables = headings.objects.filter(formID=the_form).order_by('weight')
+    tables = headings.objects.filter(formID=the_form).order_by('-weight')
     formquestions = []
     try:
         filled = formEntries.objects.filter(form=the_form, member=member).values()
@@ -20,7 +20,7 @@ def mainforms(request,form_id, member, mark, marker):
 
     # Building an array of fields
     for table in tables:
-        table_questions = (questions.objects.filter(tableID = table)).order_by('weight')
+        table_questions = (questions.objects.filter(tableID = table)).order_by('-weight')
         table_questions_list = []
         values_list = []
         entryids = []
@@ -45,9 +45,9 @@ def mainforms(request,form_id, member, mark, marker):
             ###
 
             if one_question.choicequestion:
-                queschoices = QuestionChoice.objects.filter ( questionID = one_question.choicequestion ).order_by('weight')
+                queschoices = QuestionChoice.objects.filter ( questionID = one_question.choicequestion ).order_by('-weight')
             else:
-                queschoices = QuestionChoice.objects.filter (questionID = one_question).order_by('weight')
+                queschoices = QuestionChoice.objects.filter (questionID = one_question).order_by('-weight')
             quesAndchoice = dict(zip(
                 ['question', 'choice', 'answer', 'entryid'],
                 [one_question, queschoices, mysearch['answers'], mysearch['id']]

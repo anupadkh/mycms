@@ -11,7 +11,7 @@
 <div id="A">
   {% for member in list %}
   {% if form_type %}
-  <div><a href="{% url 'formentry:submit_formindex' id=member.id %}" class="btn btn-primary" >{{member}}</a></div>
+  <div><a href="{% url 'formentry:submit_formindex' id=member.id %}" class="btn btn-primary" >{{member.id}}.{{member}}</a></div>
   {% endif %}
   {% if tab_type %}
   <div><a href="{% url 'formentry:submit_tableindex' formid=formid tid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member}}</a></div>

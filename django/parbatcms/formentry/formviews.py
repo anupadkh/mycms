@@ -44,8 +44,10 @@ def mainforms(request,form_id, member, mark, marker):
             # [{'age': 7, 'name': 'Pam'}]
             ###
 
-
-            queschoices = QuestionChoice.objects.filter (questionID = one_question).order_by('weight')
+            if one_question.choicequestion:
+                queschoices = QuestionChoice.objects.filter ( questionID = one_question.choicequestion ).order_by('weight')
+            else:
+                queschoices = QuestionChoice.objects.filter (questionID = one_question).order_by('weight')
             quesAndchoice = dict(zip(
                 ['question', 'choice', 'answer', 'entryid'],
                 [one_question, queschoices, mysearch['answers'], mysearch['id']]

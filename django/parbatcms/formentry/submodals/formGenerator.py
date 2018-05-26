@@ -9,6 +9,7 @@ class formValue(models.Model):
     (1,'House'), (2,'Family'), (3, 'Individual')
     )
     formType = models.IntegerField('Form Target Group',choices=formTypeChoices, default=3)
+    jsonText = models.TextField('Json Text')
     def __str__(self):
         return self.formName;
 
@@ -46,6 +47,7 @@ class questions(models.Model):
     )
     description = models.TextField('Description(विवरण)',blank=True, null=True, default='')
     weight = models.IntegerField('Order', default=1)
+    choicequestion = models.IntegerField('Parent Choices',blank=True, null=True)
     def __str__(self):
         return self.question;
     def name(self):

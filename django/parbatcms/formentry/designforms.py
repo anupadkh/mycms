@@ -16,7 +16,7 @@ class tableForm(ModelForm):
         model=headings
         fields = '__all__'
         widgets = {
-            'weight' : Textarea(attrs={'disabled':'True'}),
+            'weight' : Textarea(attrs={'readonly':'True'}),
         }
 
 class questionForm(ModelForm):
@@ -25,7 +25,8 @@ class questionForm(ModelForm):
         fields = '__all__'
         widgets = {
             'sub_question' : HiddenInput(),
-            'weight' : Textarea(attrs={'disabled':'True'}),
+            'weight' : Textarea(attrs={'readonly':'True'}),
+            'choicequestion' : Textarea(attrs={'readonly':'True'}),
         }
 
 class choiceForm(ModelForm):
@@ -33,5 +34,5 @@ class choiceForm(ModelForm):
         model=QuestionChoice
         fields = '__all__'
         widgets ={
-            'weight' : Textarea(attrs={'disabled':'True'}),
+            'weight' : Textarea(attrs={'readonly':'True'}),
         }

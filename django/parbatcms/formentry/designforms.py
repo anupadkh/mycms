@@ -6,6 +6,9 @@ class mainForm(ModelForm):
     class Meta:
         model=formValue
         fields = '__all__'
+        widgets ={
+            'jsonText' : Textarea(attrs={'readonly':'True'}),
+        }
         # widgets = {
         #     'pub_date': DateTimeInput(attrs={'class': 'datetime-input'}),
         #     'creator' : HiddenInput()

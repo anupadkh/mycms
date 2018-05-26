@@ -20,7 +20,7 @@
           {% if one_question.question.answerType == 'sc' %}
           <select class="form-control" name="question_value[{{one_question.question.id}}]">
             {% for choices in one_question.choice %}
-              <option value="{{choices.id}}"  {% if choices.id == one_question.answer %} selected {% endif %}>{{choices}}</option>
+              <option value="{{choices.id}}"  {% ifequal choices.id one_question.answer %} selected {% endifequal %}>{{choices}}</option>
             {% endfor %}
           </select>
           {% elif one_question.question.answerType == 'yn'  %}
@@ -28,8 +28,10 @@
             <option value="1">छ (हो)</option>
             <option value="0">छैन (होइन)</option>
           </select>
+          {% elif one_question.question.answerType == 'nv' %}
+            <input type="number" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}" data-toggle="tooltip" data-placement="top" title="{{one_question.question.description}}"/>
           {% else %}
-            <input type="text" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}"/>
+            <input type="text" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}" data-toggle="tooltip" data-placement="top" title="{{one_question.question.description}}"/>
           {% endif %}
           <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
       </div>

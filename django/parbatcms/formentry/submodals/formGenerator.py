@@ -26,11 +26,13 @@ class questions(models.Model):
     selectchoices = 'sc'
     numberValue = 'nv'
     yesno = 'yn'
+    dateformat = 'df'
     answerChoices = ((simpletext, 'Simple Text'),
         (multiplechoices, 'Multiple Choices'),
         (selectchoices, 'Select Choices'),
         (numberValue, 'Number Value'),
-        (yesno, 'Yes/No Question')
+        (yesno, 'Yes/No Question'),
+        (dateformat, 'मिति Date')
     )
     tableID = models.ForeignKey(headings, on_delete=models.CASCADE)
     question = models.TextField('Question (प्रश्न)')

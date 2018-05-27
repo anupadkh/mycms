@@ -66,10 +66,11 @@ def mainforms(request,form_id, member, mark, marker):
     # for i in range (1, the_form.markers + 1):
         # var = var.append('mark' + str(i))
     no_of_markings = the_form.markers
-    formmarkers = range(1,int(the_form.markers)+1)
+    formmarkers = range(int(the_form.markers))
+    nameofmarkers = dict(zip(formmarkers,['आफैँ','वडाको कर्मचारी']))
     return render(request, 'base_forms/displayform.html',{
         'form':the_form, 'formquestions': formquestions, 'marktype':mark, 'marker':marker, 'member':member, 'mark':no_of_markings,
-        'formmarkers':formmarkers,
+        'formmarkers':formmarkers, 'nameofmarkers':nameofmarkers,
     })
 
 

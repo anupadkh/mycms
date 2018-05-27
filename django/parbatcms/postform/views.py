@@ -9,7 +9,7 @@ from postform.models import *
 from postform.forms import *
 
 #debug mode
-# from pprint import pprint
+from pprint import pprint
 
 
 def seePost(request):
@@ -19,13 +19,26 @@ def seePost(request):
         myquestions = request.POST.getlist('questionID[]')
         # answers = request.POST.getlist('question_value[]')
         answers = []
+        marks = []
         object_questions = questions.objects.filter(pk__in=myquestions)
         for onequestion in object_questions:
             # pprint(onequestion.id)
             # pprint(" is Question and Answer is ")
             ans = (request.POST.get('question_value[' + str(onequestion.pk)+']'))
+            mark0 = request.POST.get('mark0['+ str(onequestion.pk)+']')
+            mark1 = request.POST.get('mark1['+ str(onequestion.pk)+']')
+            if mark0:
+                a = [mark0, mark1]
+            else:
+                a = [0,0]
+
+            myzip = {onequestion.pk:a}
+            marks.append(myzip)
+
             # pprint(ans)
             answers.append(ans)
+
+        pprint(marks)
         form = formValue.objects.get(pk = request.POST.get('formid'))
         member = request.POST.get('member')
 
@@ -52,7 +65,7 @@ def seePost(request):
             else:
                 choice = ans
             choices.append(choice)
-        postqna = list(zip(object_questions, answers, choices))
+        postqna = list(zip(object_questions, answers, choices, marks))
         # https://stackoverflow.com/questions/11011756/is-there-any-pythonic-way-to-combine-two-dicts-adding-values-for-keys-that-appe#11011846
         # pprint (object_questions)
         # pprint (answers)
@@ -69,7 +82,7 @@ def makePost(request):
         # pprint(request.POST)
 
         form = formValue.objects.get(pk = int(formid))
-        markers = ["mark"+str(i)+"[]" for i in range(form.markers)]
+        markers = ["mark"+str(i)+"[]" for i in range(1,form.markers+1)]
         marks=[]
         for a in markers:
             marks.append(request.POST.getlist(a))

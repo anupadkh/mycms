@@ -18,7 +18,7 @@
       <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label"><p style="color:red;">{{one_question.question}} {% if mark >= 1 %}</p><p> अङ्क भार: {{one_question.question.marks}} {% endif %}</p></label>
       <div class="col-md-6">
           {% if one_question.question.answerType == 'sc' %}
-          <select class="form-control" name="question_value[{{one_question.question.id}}]">
+          <select class="form-control" name="question_value[{{one_question.question.id}}]" id="{{one_question.question.id}}">
             {% for choices in one_question.choice %}
               <option value="{{choices.id}}"  {% ifequal choices.id one_question.answer %} selected {% endifequal %}>{{choices}}</option>
             {% endfor %}
@@ -35,11 +35,13 @@
           {% endif %}
           <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
       </div>
-      {% for i in formmarkers %}
+      {% if mark == 2 %}
+      {% for  i in formmarkers %}
         <div class="col-md-6">
-          <input name="mark{{i}}[{{one_question.question.id}}]" type="number" placeholder="प्रश्नकर्ता नं. {{ i }}"  />
+          <input name="mark{{i}}[{{one_question.question.id}}]" type="number" placeholder="मूल्याकन कर्ता : {% if i is 0 %}{{ nameofmarkers.0 }}{% else %}{{nameofmarkers.1}}{% endif %}"  />
         </div>
       {% endfor %}
+      {% endif %}
 
 
 
@@ -57,9 +59,6 @@
 <input type="hidden" name="member" value = "{{member}}"/>
 <input type="hidden" name="formid" value="{{form.id}}"/>
 <input type="submit" name="Submit" value="Submit" class="btn btn-danger" {% if member < 1 %}disabled{% endif %} />
-<div id="main_container">
-
-</div>
 </form>
 {% endblock %}
 {% block form-footer %}
@@ -81,30 +80,67 @@
 
 {% block remaining-js %}
 <script type="text/javascript">
-// var path = '{{request.scheme}}://{{request.get_host}}/static/developer/districts.json';
-// var request_json = $.getJSON(path, function(data) {
-//     console.log(data);
-// });
-// $.getJSON( path, function( data ) {
-//     $.each(data.json_array, function(key, val){
-//       var field 	= 	$("<div></div>").addClass("form-group row");
-//       var label 	=	'<label style="text-align:right; font-size:18px; text-transform:none;" for="39" class="col-md-6 col-form-label"><p style="color:red;">'+ val.id +'</p></label>';
-//       field.append(label);
-//       var row_field	=	$("<div></div>").addClass("col-md-6");
-//       var select_field 	=	$('<select class="form-control" name="question_value['+val.district+']"></select>');
-//       $.each(val.muns, function(option_key, option_val){
-//         var option_field 	=	'<option value='+option_val.Value+' selected='+ option_val.Selected +'>'+ option_val.Text +'</option>';
-//         select_field.append(option_field);
-//       });
-//
-//
-//       row_field.append(select_field);
-//       var hidden_field 	=	'<input type="hidden" name="questionID[]" value="'+ val.district +'"/>';
-//       row_field.append(hidden_field);
-//       field.append(row_field);
-//       $('#main_container').append(field);
-//     });
-// });
+var path = '{{request.scheme}}://{{request.get_host}}/static/developer/districts.json';
+$.getJSON(path, function( data ) {
+    var select_field  =   $("#39");
+    var temp_select_field   = $("#45");
+    $.each(data.json_array, function(key, val){
+      var option_field  = '';
+      option_field  = '<option value='+val.district+ '>'+ val.id +'</option>';
+      select_field.append(option_field);
+      temp_select_field.append(option_field);
+    });
+});
+
+
+
+$("#39").on('change', function() {
+  console.log(this.value);
+  var current_value   = this.value;
+  var district_select_field  = $("#40");
+  $.getJSON(path, function( data ) {
+    var select_field  =   $("#39");
+
+    $.each(data.json_array, function(key, val){
+      if(val.district == current_value){
+
+
+        $('#40').find('option').remove().end();
+
+
+          $.each(val.muns, function(option_key, option_val){
+          var option_field   = '<option value='+option_val.Value+' selected='+ option_val.Selected +'>'+ option_val.Text +'</option>';
+          district_select_field.append(option_field);
+        });
+      }
+    });
+  });
+});
+
+
+
+$("#45").on('change', function() {
+  console.log(this.value);
+  var current_value   = this.value;
+  var district_select_field  = $("#46");
+  $.getJSON(path, function( data ) {
+    var select_field  =   $("#45");
+
+    $.each(data.json_array, function(key, val){
+      if(val.district == current_value){
+
+
+        $('#46').find('option').remove().end();
+
+
+          $.each(val.muns, function(option_key, option_val){
+          var option_field   = '<option value='+option_val.Value+' selected='+ option_val.Selected +'>'+ option_val.Text +'</option>';
+          district_select_field.append(option_field);
+        });
+      }
+    });
+  });
+});
 
 </script>
 {% endblock%}

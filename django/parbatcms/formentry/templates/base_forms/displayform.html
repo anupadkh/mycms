@@ -4,7 +4,7 @@
   <h4 class="card-title">{{form.formName}}</h4>
   <p class="card-category">जम्मा प्रश्नकर्ता सङ्ख्या =‍ {{form.markers}}</p>
 {% endblock %}
-
+{% load static %}
 {% block form-body %}
 <!-- {{request.path}} -->
 <form action="{% url 'postform:seepost' %}" method="post">
@@ -35,6 +35,16 @@
           {% endif %}
           <input type="hidden" name="questionID[]" value="{{one_question.question.id}}"/>
       </div>
+      {% for i in formmarkers %}
+        <div class="col-md-6">
+          <input name="mark{{i}}[{{one_question.question.id}}]" type="number" placeholder="प्रश्नकर्ता नं. {{ i }}"  />
+        </div>
+      {% endfor %}
+
+
+
+
+
 
 
     </div>
@@ -45,9 +55,11 @@
 {% endfor %}
 {% csrf_token %}
 <input type="hidden" name="member" value = "{{member}}"/>
-
 <input type="hidden" name="formid" value="{{form.id}}"/>
 <input type="submit" name="Submit" value="Submit" class="btn btn-danger" {% if member < 1 %}disabled{% endif %} />
+<div id="main_container">
+
+</div>
 </form>
 {% endblock %}
 {% block form-footer %}
@@ -66,3 +78,33 @@
 {% endif %}
 <a class="btn btn-danger" href="/forms/design/">सबै फारम हेर्नुहोस् । </a>
 {% endblock %}
+
+{% block remaining-js %}
+<script type="text/javascript">
+// var path = '{{request.scheme}}://{{request.get_host}}/static/developer/districts.json';
+// var request_json = $.getJSON(path, function(data) {
+//     console.log(data);
+// });
+// $.getJSON( path, function( data ) {
+//     $.each(data.json_array, function(key, val){
+//       var field 	= 	$("<div></div>").addClass("form-group row");
+//       var label 	=	'<label style="text-align:right; font-size:18px; text-transform:none;" for="39" class="col-md-6 col-form-label"><p style="color:red;">'+ val.id +'</p></label>';
+//       field.append(label);
+//       var row_field	=	$("<div></div>").addClass("col-md-6");
+//       var select_field 	=	$('<select class="form-control" name="question_value['+val.district+']"></select>');
+//       $.each(val.muns, function(option_key, option_val){
+//         var option_field 	=	'<option value='+option_val.Value+' selected='+ option_val.Selected +'>'+ option_val.Text +'</option>';
+//         select_field.append(option_field);
+//       });
+//
+//
+//       row_field.append(select_field);
+//       var hidden_field 	=	'<input type="hidden" name="questionID[]" value="'+ val.district +'"/>';
+//       row_field.append(hidden_field);
+//       field.append(row_field);
+//       $('#main_container').append(field);
+//     });
+// });
+
+</script>
+{% endblock%}

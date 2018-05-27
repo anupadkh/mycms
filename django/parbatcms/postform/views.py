@@ -29,8 +29,10 @@ def seePost(request):
             mark1 = request.POST.get('mark1['+ str(onequestion.pk)+']')
             if mark0:
                 a = [mark0, mark1]
-            else:
+            elif mark0 == '':
                 a = [0,0]
+            else:
+                a=[]
 
             myzip = {onequestion.pk:a}
             marks.append(myzip)
@@ -38,7 +40,7 @@ def seePost(request):
             # pprint(ans)
             answers.append(ans)
 
-        pprint(marks)
+        # pprint(marks)
         form = formValue.objects.get(pk = request.POST.get('formid'))
         member = request.POST.get('member')
 
@@ -58,7 +60,7 @@ def seePost(request):
                 try:
                     choice = QuestionChoice.objects.get(pk=ans)
                 except:
-                    choice = str(ans) + "Error is here "
+                    choice = ans
 
             elif ques.answerType == 'yn':
                 choice = {'1':'Yes, हो','2':'No, होइन'}.get(ans)

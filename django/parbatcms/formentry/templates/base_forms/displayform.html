@@ -16,7 +16,7 @@
   {% for one_question in tables.table_questions %}
     <div class="form-group row">
       <label style="text-align:right; font-size:18px; text-transform:none;" for="{{one_question.question.id}}" class="col-md-6 col-form-label"><p style="color:red;">{{one_question.question}} {% if mark >= 1 %}</p><p> अङ्क भार: {{one_question.question.marks}} {% endif %}</p>
-      <p style="color:blue">{{ onequestion.question.answer }}</p>
+      <p style="color:black; font-size:10px;">{{ one_question.answer}}</p>
 
       </label>
 
@@ -24,7 +24,7 @@
           {% if one_question.question.answerType == 'sc' %}
           <select class="form-control" name="question_value[{{one_question.question.id}}]" id="{{one_question.question.id}}">
             {% for choices in one_question.choice %}
-              <option value="{{choices.id}}"  {% ifequal choices.id one_question.answer %} selected {% endifequal %}>{{choices}}</option>
+              <option value="{{choices.id}}"  {% ifequal choices.id one_question.question.answers %} selected {% endifequal %}>{{choices}}</option>
             {% endfor %}
           </select>
           {% elif one_question.question.answerType == 'yn'  %}

@@ -37,9 +37,10 @@ def seePost(request):
                 a=[]
 
             myzip = {onequestion.pk:a}
-            if a:
-                total_self += ( float(onequestion.marks) * int(a[0]) )/10
-                total_ward += ( float(onequestion.marks) * int(a[1]) )/10
+            # if a:
+                # total_self += ( (onequestion.marks) *
+                # float(a[0]) )/10
+                # total_ward += ((onequestion.marks) * float(a[1]) )/10
             marks.append(myzip)
 
             # pprint(ans)

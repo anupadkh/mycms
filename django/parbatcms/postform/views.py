@@ -97,14 +97,34 @@ def makePost(request):
         qna = list(zip(myquestions,answers))
         # pprint(qna)
         # pprint(marks)
+        f=0
         for idx,(q,a) in enumerate(qna):
             data = {'formfield' : q, 'answers':a, 'form' : formid, 'member':member}
             # pprint(myinstance)
+            try:
+                f=formEntries.objects.get(formfield=q, form=formid, member=member)
+            except formEntries.MultipleObjectsReturned:
+                f = formEntries.objects.filter(formfield=q, form=formid, member=member)
+                for d in f:
+                    if d == f[0]:
+                        continue
+                    else:
+                        d.delete()
+                f=f[0]
+            except:
+                pprint("Everything is first")
+
             theform = EntryForm(data)
             # pprint(theform)
             if theform.is_valid():
                 # pprint("Hi this is working \n")
-                saved_entry = theform.save()
+                if f:
+                    saved_entry = theform.save(commit=False)
+                    saved_entry.id = f.id
+                    saved_entry.save()
+                else:
+                    saved_entry = theform.save()
+
                 for jdx,b in enumerate(marks):
                     data = {'valueid' : saved_entry.id, 'marks' : b[idx], 'marker':markers[jdx]}
                     pprint(data)

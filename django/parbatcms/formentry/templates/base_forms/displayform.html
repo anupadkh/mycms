@@ -24,7 +24,7 @@
           {% if one_question.question.answerType == 'sc' %}
           <select class="form-control" name="question_value[{{one_question.question.id}}]" id="{{one_question.question.id}}">
             {% for choices in one_question.choice %}
-              <option value="{{choices.id}}"  {% ifequal choices.id one_question.question.answers %} selected {% endifequal %}>{{choices.id}} {{choices}}</option>
+              <option value="{{choices.id}}"  {% ifequal choices.id one_question.answer %} selected {% endifequal %}>{{choices.id}} {{choices}}</option>
             {% endfor %}
           </select>
           {% elif one_question.question.answerType == 'yn'  %}

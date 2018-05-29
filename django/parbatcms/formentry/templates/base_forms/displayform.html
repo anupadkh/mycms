@@ -30,7 +30,7 @@
           {% elif one_question.question.answerType == 'yn'  %}
           <select class="form-control" name="question_value[{{one_question.question.id}}]">
             <option value="1">१ छ (हो)</option>
-            <option value="0">० छैन (होइन)</option>
+            <option value="2">० छैन (होइन)</option>
           </select>
           {% elif one_question.question.answerType == 'nv' %}
             <input type="number" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}" data-toggle="tooltip" data-placement="top" title="{{one_question.question.description}}"/>
@@ -48,7 +48,7 @@
       {% if mark == 2 %}
       {% for  i in formmarkers %}
         <div class="col-md-6">
-          <input name="mark{{i}}[{{one_question.question.id}}]" type="number" placeholder="मूल्याकन कर्ता : {% if i is 0 %}{{ nameofmarkers.0 }}{% else %}{{nameofmarkers.1}}{% endif %}"  />
+          <input name="mark{{i}}[{{one_question.question.id}}]" type="number" placeholder="मूल्याकन कर्ता : {% if i is 0 %}{{ nameofmarkers.0 }}{% else %}{{nameofmarkers.1}}{% endif %}" value="{% if i is 0 %}{{one_question.marks.0.marks}}{% else %}{{one_question.marks.1.marks}}{% endif %}" />
         </div>
       {% endfor %}
       {% endif %}

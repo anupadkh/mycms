@@ -28,7 +28,15 @@ def mainforms(request,form_id, member, mark, marker):
         for one_question in table_questions:
             #find the entry item
             mysearch = next((item for item in filled if item["formfield_id"] == one_question.id), {'id': '', 'formfield_id': '', 'answers': '', 'member': '', 'form_id': ''})
+            if mysearch['id']:
+                from pprint import pprint
+                # pprint(mysearch)
 
+                marks = MarkValues.objects.filter(valueid = mysearch['id'])
+
+                # pprint(marks)
+
+            # mark_gained =
             # Find index for the found id from filled array
             # Find the answers from the indexed array to load to values_list
             ###
@@ -49,8 +57,8 @@ def mainforms(request,form_id, member, mark, marker):
             else:
                 queschoices = QuestionChoice.objects.filter (questionID = one_question).order_by('-weight')
             quesAndchoice = dict(zip(
-                ['question', 'choice', 'answer', 'entryid'],
-                [one_question, queschoices, mysearch['answers'], mysearch['id']]
+                ['question', 'choice', 'answer', 'entryid', 'marks'],
+                [one_question, queschoices, mysearch['answers'], mysearch['id'], marks]
             ))
             table_questions_list.append(quesAndchoice)
         formquestions.append(dict(zip(

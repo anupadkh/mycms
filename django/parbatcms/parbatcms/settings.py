@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'personal.apps.PersonalConfig',
     'formentry.apps.FormentryConfig',
     'users.apps.UsersConfig',
+    'photouploads.apps.PhotouploadsConfig',
+    # 'dajaxice',
+    # 'dajax',
+    # 'mydajax.apps.MydajaxConfig',
     # 'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -85,12 +89,30 @@ WSGI_APPLICATION = 'parbatcms.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    # 'primary': {
+    #     'NAME': os.path.join(BASE_DIR, 'db2.sqlite3'),
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    # },
+    # 'replica1': {
+    #     'NAME': os.path.join(BASE_DIR, 'db3.sqlite3'),
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    # },
+    # 'replica2': {
+    #     'NAME': os.path.join(BASE_DIR, 'db4.sqlite3'),
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    # },
 }
-
+# DATABASE_ROUTERS = [
+#     # 'path.to.AuthRouter'
+#     os.path.join(BASE_DIR, 'authrouter.py'),
+#     # 'path.to.PrimaryReplicaRouter'
+#     os.path.join(BASE_DIR, 'replica.py'),
+# ]
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -124,6 +146,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -138,3 +163,11 @@ STATICFILES_FINDERS = [
 JET_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+# DAJAXICE_MEDIA_PREFIX="dajaxice"
+#
+# TEMPLATE_LOADERS = (
+#     'django.template.loaders.filesystem.Loader',
+#     'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+# )

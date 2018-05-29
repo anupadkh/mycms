@@ -30,6 +30,12 @@
           </select>
           {% elif one_question.question.answerType == 'nv' %}
             <input type="number" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}" data-toggle="tooltip" data-placement="top" title="{{one_question.question.description}}"/>
+          {% elif one_question.question.answerType == 'mc' %}
+          <select class="form-control" name="question_value[{{one_question.question.id}}]" id="{{one_question.question.id}}" multiple>
+            {% for choices in one_question.choice %}
+              <option value="{{choices.id}}"  {% ifequal choices.id one_question.answer %} selected {% endifequal %}>{{choices}}</option>
+            {% endfor %}
+          </select>
           {% else %}
             <input type="text" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}" data-toggle="tooltip" data-placement="top" title="{{one_question.question.description}}"/>
           {% endif %}
@@ -86,6 +92,10 @@ $.getJSON(path, function( data ) {
     var temp_select_field   = $("#45");
     $.each(data.json_array, function(key, val){
       var option_field  = '';
+      if (val.district==51) {
+        option_field  = '<option value='+val.district+ '>'+ val.id +'</option>';
+        option_field.defaultSelected = True;
+      }
       option_field  = '<option value='+val.district+ '>'+ val.id +'</option>';
       select_field.append(option_field);
       temp_select_field.append(option_field);

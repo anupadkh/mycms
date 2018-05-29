@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^forms/', include('formentry.urls')),
     url(r'^users/', include('users.urls')),
     url(r'^post/', include('postform.urls')),
+    # url(r'^ajax/', include('mydajax.urls')),
 
 ]

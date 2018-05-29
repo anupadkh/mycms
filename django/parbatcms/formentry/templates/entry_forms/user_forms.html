@@ -66,13 +66,14 @@
 
                 </div>
                 <div class="card-body">{% block form-nav %}
-                  {% if form_next == 'house' %}
-                    <a class = "btn btn-primary" href ="{% url 'formentry:family_details' geo=geo pid=0 house=0 fid=personid%}" role="button">Go Back</a>
-                  {% endif %}
+                  <!-- {% if form_next == 'house' %}
+                    <a class = "btn btn-primary" href ="{% url 'formentry:family_details' geo=geo pid=0 house=0 fid=personid%}" role="button">पछाडी फर्कनुहोस्</a>
+                  {% endif %} -->
                   {% if flag %}
                   {% if  personid %}
                     <a class = "btn btn-primary" href ="{% url 'formentry:relation' mooli=mooli child=child entry=2 %}" role="button">Add Relation</a>
                     <a class = "btn btn-primary" href ="{% url 'formentry:memberlist' family_id=mooli %}" role="button">परिवारमा जानुहोस् ।</a>
+                    <a class= "btn btn-secondary" href="{% url 'postform:upload' member=child memberType=3 %}">फोटो खिच्नुहोस्</a>
                   {% endif %}
                   {% endif %}
                   {% endblock %}

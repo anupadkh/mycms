@@ -23,12 +23,13 @@ def simple_upload(request, member, memberType):
             form.save()
             # model_instance.im
             # pprint(model_instance.document)
-            return redirect('formentry:index')
+            return redirect(request.session['myurl'])
     else:
         myinstance = ImageUploads(member=member, memberType=memberType)
-        # myinstance.upload()
-        pprint(myinstance)
+
+        # pprint(myinstance)
         form = DocumentForm(instance=myinstance)
+
     # return render(request, 'core/model_form_upload.html', {
     #     'form': form
     # })

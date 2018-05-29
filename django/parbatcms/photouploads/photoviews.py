@@ -26,13 +26,15 @@ def simple_upload(request, member, memberType):
             return redirect(request.session['myurl'])
     else:
         myinstance = ImageUploads(member=member, memberType=memberType)
-
-        # pprint(myinstance)
+        # myinstance.upload()
+        pprint(myinstance)
         form = DocumentForm(instance=myinstance)
+        images = ImageUploads.objects.filter(member=member, memberType=memberType);
 
     # return render(request, 'core/model_form_upload.html', {
     #     'form': form
     # })
+    # pprint(images[0].document.url)
     return render(request, 'photo/index.html', {
-        'form':form
+        'form':form, 'images':images,
     })

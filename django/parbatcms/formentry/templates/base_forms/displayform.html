@@ -92,7 +92,7 @@ $.getJSON(path, function( data ) {
     var temp_select_field   = $("#45");
     $.each(data.json_array, function(key, val){
       var option_field  = '';
-      option_field  = '<option value='+val.district+ '>'+ val.id +'</option>';
+      option_field  = '<option value='+val.district+ '>'+ val.district + ' ' + val.id +'</option>';
       select_field.append(option_field);
       temp_select_field.append(option_field);
     });
@@ -115,7 +115,7 @@ $("#39").on('change', function() {
 
 
           $.each(val.muns, function(option_key, option_val){
-          var option_field   = '<option value='+option_val.Value+' selected='+ option_val.Selected +'>'+ option_val.Text +'</option>';
+          var option_field   = '<option value='+option_val.Value+' selected='+ option_val.Selected +'>'+ val.district + ' ' + option_val.Text +'</option>';
           district_select_field.append(option_field);
         });
       }

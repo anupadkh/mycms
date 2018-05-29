@@ -92,10 +92,6 @@ $.getJSON(path, function( data ) {
     var temp_select_field   = $("#45");
     $.each(data.json_array, function(key, val){
       var option_field  = '';
-      if (val.district==51) {
-        option_field  = '<option value='+val.district+ '>'+ val.id +'</option>';
-        option_field.defaultSelected = True;
-      }
       option_field  = '<option value='+val.district+ '>'+ val.id +'</option>';
       select_field.append(option_field);
       temp_select_field.append(option_field);

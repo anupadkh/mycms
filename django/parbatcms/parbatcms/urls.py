@@ -18,6 +18,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from formentry import views
 
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'^forms/', include('formentry.urls')),
     url(r'^users/', include('users.urls')),
     url(r'^post/', include('postform.urls')),
+    url(r'^$', views.index, name='index'),
     # url(r'^ajax/', include('mydajax.urls')),
 
 ]

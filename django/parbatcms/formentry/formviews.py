@@ -31,8 +31,9 @@ def mainforms(request,form_id, member, mark, marker):
             if mysearch['id']:
                 from pprint import pprint
                 # pprint(mysearch)
-
                 marks = MarkValues.objects.filter(valueid = mysearch['id'])
+            else:
+                marks = {}
 
                 # pprint(marks)
 

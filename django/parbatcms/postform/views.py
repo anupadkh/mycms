@@ -21,6 +21,8 @@ def seePost(request):
         answers = []
         marks = []
         object_questions = questions.objects.filter(pk__in=myquestions)
+        total_self=0
+        total_ward=0
         for onequestion in object_questions:
             # pprint(onequestion.id)
             # pprint(" is Question and Answer is ")
@@ -35,6 +37,9 @@ def seePost(request):
                 a=[]
 
             myzip = {onequestion.pk:a}
+            if a:
+                total_self += ( float(onequestion.marks) * int(a[0]) )/10
+                total_ward += ( float(onequestion.marks) * int(a[1]) )/10
             marks.append(myzip)
 
             # pprint(ans)
@@ -44,7 +49,7 @@ def seePost(request):
         form = formValue.objects.get(pk = request.POST.get('formid'))
         member = request.POST.get('member')
 
-
+        obtained = {'own':total_self, 'ward':total_ward}
 
 
         formmarkers = [{"प्रश्नकर्ता नं "+str(i),"mark"+str(i)} for i in range(form.markers)]
@@ -72,7 +77,7 @@ def seePost(request):
         # pprint (object_questions)
         # pprint (answers)
         return render(request, 'base_forms/mytemplate.html',{
-            'field_choices':postqna, 'markers': formmarkers, 'form':form, 'member':member,
+            'field_choices':postqna, 'markers': formmarkers, 'form':form, 'member':member, 'obtained_marks':obtained
         })
 
 def makePost(request):

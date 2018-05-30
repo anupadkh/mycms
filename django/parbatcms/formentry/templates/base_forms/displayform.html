@@ -28,7 +28,7 @@
             {% endfor %}
           </select>
           {% elif one_question.question.answerType == 'yn'  %}
-          <input type="checkbox" name="question_value[{{one_question.question.id}}]" {% if one_question.answer == '1' %}checked{% endif %} value='1'>
+          <input class="form-control" type="checkbox" name="question_value[{{one_question.question.id}}]" {% if one_question.answer == '1' %}checked{% endif %} value='1'>
           <!-- <select class="form-control" name="question_value[{{one_question.question.id}}]">
             <option value="1">१ छ (हो)</option>
             <option value="2" {% if one_question.answer == '2' %} selected {% endif %}>० छैन (होइन)</option>

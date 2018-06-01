@@ -34,20 +34,26 @@ def seePost(request):
                 pprint (ans)
             else:
                 ans = (request.POST.get('question_value[' + str(onequestion.pk)+']'))
-            mark0 = request.POST.get('mark0['+ str(onequestion.pk)+']')
-            mark1 = request.POST.get('mark1['+ str(onequestion.pk)+']')
-            if mark0:
-                a = [mark0, mark1]
-            elif mark0 == '':
-                a = [0,0]
-            else:
+            if form.markers ==0:
                 a=[]
-
+            else:
+                mark0 = request.POST.get('mark0['+ str(onequestion.pk)+']')
+                mark1 = request.POST.get('mark1['+ str(onequestion.pk)+']')
+                if mark0:
+                    mark1 = 0 if (mark1=='') else mark1
+                    a = [mark0, mark1]
+                elif mark1:
+                    mark0 = 0 if mark0 == '' else mark0
+                    a = [mark0, mark1]
+                else:
+                    mark1 = 0
+                    mark0 = 0
+                    a = [mark0, mark1]
             myzip = {onequestion.pk:a}
-            # if a:
-                # total_self += ( (onequestion.marks) *
-                # float(a[0]) )/10
-                # total_ward += ((onequestion.marks) * float(a[1]) )/10
+            if a:
+                somemarks = float(onequestion.marks)
+                total_self += somemarks * float(mark0)/10
+                total_ward += somemarks * float(mark1)/10
             marks.append(myzip)
 
             # pprint(ans)
@@ -134,12 +140,23 @@ def makePost(request):
                     saved_entry = theform.save()
 
                 for jdx,b in enumerate(marks):
+                    # pprint(idx)
+                    # pprint(b)
                     data = {'valueid' : saved_entry.id, 'marks' : b[idx], 'marker':markers[jdx]}
-                    pprint(data)
+                    # pprint(data)
                     markform = MarksForm(data)
+                    marks_saved_entries = MarkValues.objects.filter(valueid = saved_entry, marker = markers[jdx])
+                    if marks_saved_entries:
+                        marks_saved_entry = marks_saved_entries[0]
                     # pprint(mymarkform)
                     if markform.is_valid():
-                        markform.save()
+                        mymark = markform.save(commit=False)
+                        if marks_saved_entries:
+                            mymark.id = marks_saved_entry.id
+                            mymark.save()
+                        else:
+                            mymark.save()
+
 
         return redirect(request.session['myurl'])
     return redirect('formentry:people')

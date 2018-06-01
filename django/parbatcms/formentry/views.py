@@ -114,14 +114,10 @@ def house_head_entry(request,coordinates=0, pid=0):
         form = PersonalForm(request.POST or None, instance=my_person)
     else:
         form = PersonalForm(request.POST or None, request=request)
-        user = request.user.username
-        #debug mode
-        from pprint import pprint
-        pprint(user)
-        form.creator = user
-        pprint(form)
     if form.is_valid():
-        person_saved = form.save()
+        person_saved = form.save(commit=False)
+        person_saved.creator = request.user.username
+        person_saved.save()
         return redirect('formentry:family_details', house=0, fid=person_saved.id, geo=coordinates, pid =0)
 
     # request.session['myurl'] = request.path

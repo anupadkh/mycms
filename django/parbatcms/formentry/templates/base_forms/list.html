@@ -10,18 +10,18 @@
 {% block form-body %}
 <div id="A">
   {% for member in list %}
-  {% if form_type %}
-  <div><a href="{% url 'formentry:submit_formindex' id=member.id %}" class="btn btn-primary" >{{member}}</a></div>
-  {% endif %}
-  {% if tab_type %}
-  <div><a href="{% url 'formentry:submit_tableindex' formid=formid tid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member.id}}.{{member}}</a></div>
-  {% endif %}
-  {% if ques_type %}
-  <div><a href="{% url 'formentry:submit_questionindex' tid=tid qid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member.id}}.{{member}}</a></div>
-  {% endif %}
-  {% if choice_type %}
-  <div><a href="{% url 'formentry:submit_choiceindex' qid=qid cid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member.id}}.{{member}}</a></div>
-  {% endif %}
+  <div id="{{member.id}}">{% if form_type %}
+    <a href="{% url 'formentry:submit_formindex' id=member.id %}" class="btn btn-primary">{{member}}</a>
+    {% endif %}
+    {% if tab_type %}
+    <a href="{% url 'formentry:submit_tableindex' formid=formid tid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member.id}}.{{member}}</a>
+    {% endif %}
+    {% if ques_type %}
+    <a href="{% url 'formentry:submit_questionindex' tid=tid qid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member.id}}.{{member}}</a>
+    {% endif %}
+    {% if choice_type %}
+    <a href="{% url 'formentry:submit_choiceindex' qid=qid cid=member.id %}" class="btn btn-primary" order={{member.weight}}>{{member.id}}.{{member}}</a>
+  {% endif %}</div>
   {% endfor %}
 </div>
 <script type="text/javascript">

@@ -17,6 +17,8 @@ def seePost(request):
     # pprint(locals())
     if request.POST:
         myquestions = request.POST.getlist('questionID[]')
+        form = formValue.objects.get(pk = request.POST.get('formid'))
+        member = request.POST.get('member')
         # answers = request.POST.getlist('question_value[]')
         answers = []
         marks = []
@@ -26,7 +28,12 @@ def seePost(request):
         for onequestion in object_questions:
             # pprint(onequestion.id)
             # pprint(" is Question and Answer is ")
-            ans = (request.POST.get('question_value[' + str(onequestion.pk)+']'))
+            if onequestion.answerType == 'mc':
+                # pprint(request.POST.getlist('question_value[' + str(onequestion.pk)+']'))
+                ans = ",".join(str(x) for x in request.POST.getlist('question_value[' + str(onequestion.pk)+']'))
+                pprint (ans)
+            else:
+                ans = (request.POST.get('question_value[' + str(onequestion.pk)+']'))
             mark0 = request.POST.get('mark0['+ str(onequestion.pk)+']')
             mark1 = request.POST.get('mark1['+ str(onequestion.pk)+']')
             if mark0:
@@ -47,8 +54,7 @@ def seePost(request):
             answers.append(ans)
 
         # pprint(marks)
-        form = formValue.objects.get(pk = request.POST.get('formid'))
-        member = request.POST.get('member')
+
 
         obtained = {'own':total_self, 'ward':total_ward}
 
@@ -88,6 +94,7 @@ def makePost(request):
         formid = request.POST.get('formid')
         member = request.POST.get('member')
         # pprint(request.POST)
+        # pprint(request.POST)
 
         form = formValue.objects.get(pk = int(formid))
         markers = ["mark"+str(i)+"[]" for i in range(1,form.markers+1)]
@@ -106,11 +113,11 @@ def makePost(request):
                 f=formEntries.objects.get(formfield=q, form=formid, member=member)
             except formEntries.MultipleObjectsReturned:
                 f = formEntries.objects.filter(formfield=q, form=formid, member=member)
-                for d in f:
-                    if d == f[0]:
-                        continue
-                    else:
-                        d.delete()
+                # for d in f:
+                #     if d == f[0]:
+                #         continue
+                #     else:
+                #         d.delete()
                 f=f[0]
             except:
                 pprint("Everything is first")

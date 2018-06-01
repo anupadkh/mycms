@@ -28,20 +28,24 @@
             {% endfor %}
           </select>
           {% elif one_question.question.answerType == 'yn'  %}
-          <input class="form-control" type="checkbox" name="question_value[{{one_question.question.id}}]" {% if one_question.answer == '1' %}checked{% endif %} value='1'>
-          <!-- <select class="form-control" name="question_value[{{one_question.question.id}}]">
-            <option value="1">१ छ (हो)</option>
-            <option value="2" {% if one_question.answer == '2' %} selected {% endif %}>० छैन (होइन)</option>
-          </select> -->
+            {% if mark > 1 %}<select class="form-control" name="question_value[{{one_question.question.id}}]">
+              <option value="1"{% if one_question.answer == '1' %} selected {% endif %}>१ छ (हो)</option>
+              <option value="2"{% if one_question.answer != '1' %} selected {% endif %}> छैन (होइन)</option>
+            </select>{% else %}
+            <input class="form-control" type="checkbox" name="question_value[{{one_question.question.id}}]" {% if one_question.answer == '1' %}checked{% endif %} value='1'>
+            {% endif %}
           {% elif one_question.question.answerType == 'nv' %}
             <input type="number" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}" data-toggle="tooltip" data-placement="top" title="{{one_question.question.description}}"/>
           {% elif one_question.question.answerType == 'mc' %}
-          <select class="form-control" name="question_value[{{one_question.question.id}}]" id="{{one_question.question.id}}" multiple>
+          <!-- <select name="question_value[{{one_question.question.id}}]" id="{{one_question.question.id}}" multiple>
             {% for choices in one_question.choice %}
               <option value="{{choices.id}}"  {% if choices.id|stringformat:"s" == field.value %}selected{% endif %}{% comment %}
               {% ifequal  one_question.answer %} selected {% endifequal %}{% endcomment %}>{{choices}}</option>
             {% endfor %}
-          </select>
+          </select> -->
+          {% for choices in one_question.choice %}
+            <input type="checkbox" name="question_value[{{one_question.question.id}}]" value="{{choices.id}}"  {% if choices.id|stringformat:"s" == field.value %}checked{% endif %}>{{choices}}</input>
+          {% endfor %}
           {% else %}
             <input type="text" class="form-control plaintext" {% if one_question.question.unanswering %}required{% endif %} id="{{one_question.question.id}}" name="question_value[{{one_question.question.id}}]" value="{{one_question.answer}}" data-toggle="tooltip" data-placement="top" title="{{one_question.question.description}}"/>
           {% endif %}
